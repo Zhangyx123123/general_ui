@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>22276D9C-EFD8-4401-9D0B-134ED7105410</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <path d="M9,10.3846154 C8.23529804,10.3846154 7.61538462,9.76470196 7.61538462,9 C7.61538462,8.23529804 8.23529804,7.61538462 9,7.61538462 C9.76470196,7.61538462 10.3846154,8.23529804 10.3846154,9 C10.3846154,9.76470196 9.76470196,10.3846154 9,10.3846154 Z M9,5.76923077 C8.23529804,5.76923077 7.61538462,5.14931735 7.61538462,4.38461538 C7.61538462,3.61991342 8.23529804,3 9,3 C9.76470196,3 10.3846154,3.61991342 10.3846154,4.38461538 C10.3846154,5.14931735 9.76470196,5.76923077 9,5.76923077 Z M9,15 C8.23529804,15 7.61538462,14.3800866 7.61538462,13.6153846 C7.61538462,12.8506827 8.23529804,12.2307692 9,12.2307692 C9.76470196,12.2307692 10.3846154,12.8506827 10.3846154,13.6153846 C10.3846154,14.3800866 9.76470196,15 9,15 Z" id="path-1"></path>
+    </defs>
+    <g id="components" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ICON-2" transform="translate(-108.000000, -486.000000)">
+            <g id="03-Icon/08-Sign/drog" transform="translate(108.000000, 486.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Combined-Shape"></g>
+                <g id="13-Palette/Icon/Disabled" mask="url(#mask-2)" fill="#CCCCCC" fill-rule="evenodd">
+                    <g transform="translate(1.000000, 1.500000)" id="Fill/Disable">
+                        <rect x="0" y="0" width="15" height="15" rx="4"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,18 @@
+$title-font-size: 14px;
+#scenario-editor-pop{
+  line-height: $default-line-height;
+  margin: 10px 0;
+  padding: 0 24px;
+  display: flex;
+  .edit-title {
+    font-size: $title-font-size;
+    min-width: 100px;
+  }
+  .edit-data {
+    font-size: $title-font-size;
+    position: relative;
+    input {
+      width: 400px;
+    }
+  }
+}

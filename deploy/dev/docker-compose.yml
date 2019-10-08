@@ -1,0 +1,243 @@
+version: '2.1'
+services:
+    nginx:
+        image: nginx
+        container_name: nginx
+        ports:
+            - '80:80'
+        mem_limit: 2048m
+        volumes:
+            - ./nginx.conf:/etc/nginx/nginx.conf
+        restart: always
+
+    # ========== DATABASE ==========
+    mysql:
+        image: mysql:${MYSQL_TAG}
+        container_name: mysql
+        ports:
+            - "${MYSQL_PORT}:${MYSQL_PORT}"
+        logging:
+            options:
+                max-size: "${DOCKER_LOG_OPT_MAX_SIZE}"
+                max-file: ${DOCKER_LOG_OPT_MAX_FILE}
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_MAIN_PASS}
+        mem_limit: 5125m
+        volumes:
+            - ./database/mysql/my.cnf:/etc/mysql/my.cnf
+            - ./database/mysql:/var/local/database
+            - ./database/mysql/docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh
+            - ${MYSQL_DATA_PATH}:/var/lib/mysql
+        restart: always
+        healthcheck:
+            test: "/usr/bin/mysql --user=${MYSQL_MAIN_USER} --password=${MYSQL_MAIN_PASS} --execute \"SHOW DATABASES;\""
+            interval: 3s
+            timeout: 1s
+            retries: 5
+    mysql-audit:
+        image: mysql:5.7
+        container_name: mysql-audit
+        ports:
+            - ${MYSQL_AUDIT_PORT}:3306
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_AUDIT_ROOT_PASSWORD}
+        mem_limit: 5125m
+        volumes:
+            - ./database/mysql/my.cnf:/etc/mysql/my.cnf
+            - ./database/mysql/docker-entrypoint-audit.sh:/usr/local/bin/docker-entrypoint.sh
+            - ./database/mysql/audit_record.sql:/var/local/database/audit_record.sql
+            - ${MYSQL_AUDIT_DATA_PATH}:/var/lib/mysql
+        restart: always
+        healthcheck:
+            test: "/usr/bin/mysql --user=root --password=${MYSQL_AUDIT_ROOT_PASSWORD} --execute \"SHOW DATABASES;\""
+            interval: 3s
+            timeout: 1s
+            retries: 5
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        ports:
+            - "${PHPMYADMIN_PORT}:80"
+        logging:
+            options:
+                max-size: "${DOCKER_LOG_OPT_MAX_SIZE}"
+                max-file: ${DOCKER_LOG_OPT_MAX_FILE}
+        mem_limit: 5125m
+        environment:
+            MYSQL_USERNAME: ${MYSQL_MAIN_USER}
+            MYSQL_PASSWORD: ${MYSQL_MAIN_PASS}
+        links:
+            - mysql:db
+        restart: always
+        depends_on:
+            "mysql":
+                condition: service_healthy
+
+    # ========== Token-auth =========
+    token-auth:
+        image: ${AUTH_IMAGE}:${AUTH_TAG}
+        container_name: ${AUTH_CONTAINER}
+        ports:
+            - "${AUTH_PORT}:${AUTH_PORT}"
+        mem_limit: 2048m
+        environment:
+            ADMIN_AUTH_MYSQL_URL: ${AUTH_MYSQL_URL}
+            ADMIN_AUTH_MYSQL_USER: ${AUTH_MYSQL_USER}
+            ADMIN_AUTH_MYSQL_PASS: ${AUTH_MYSQL_PASS}
+            ADMIN_AUTH_MYSQL_DB: ${AUTH_MYSQL_DB}
+        restart: always
+
+    # ========== Consul ==========
+    consul:
+        image: consul:${CONSUL_TAG}
+        container_name: consul
+        ports:
+            - "${CONSUL_PORT}:${CONSUL_PORT}"
+        logging:
+            options:
+                max-size: "${DOCKER_LOG_OPT_MAX_SIZE}"
+                max-file: ${DOCKER_LOG_OPT_MAX_FILE}
+        mem_limit: 2048m
+        volumes:
+            - "${CONSUL_DATA_PATH}:/consul/data"
+        restart: always
+        healthcheck:
+            test: "curl -XGET 'http://${CONSUL_IP}:${CONSUL_PORT}/v1/health/state/critical'"
+            interval: 3s
+            timeout: 1s
+            retries: 5
+
+    admin-api:
+        image: ${API_IMAGE}:${API_TAG}
+        container_name: ${API_CONTAINER}
+        ports:
+            - "${API_SERVER_PORT}:${API_SERVER_PORT}"
+        mem_limit: 2048m
+        volumes:
+            - ${MC_MOUNT_FILES_PATH}:${API_SERVER_MOUNTED_PATH}
+        environment:
+            ADMIN_SERVER_PORT: ${API_SERVER_PORT}
+            ADMIN_SERVER_AUTH_URL: ${API_SERVER_AUTH_URL}
+            ADMIN_SERVER_MYSQL_URL: ${API_SERVER_MYSQL_URL}
+            ADMIN_SERVER_MYSQL_USER: ${API_SERVER_MYSQL_USER}
+            ADMIN_SERVER_MYSQL_PASS: ${API_SERVER_MYSQL_PASS}
+            ADMIN_SERVER_MYSQL_DB: ${API_SERVER_MYSQL_DB}
+            ADMIN_SERVER_AUDIT_MYSQL_URL: ${API_SERVER_AUDIT_MYSQL_URL}
+            ADMIN_SERVER_AUDIT_MYSQL_USER: ${API_SERVER_AUDIT_MYSQL_USER}
+            ADMIN_SERVER_AUDIT_MYSQL_PASS: ${API_SERVER_AUDIT_MYSQL_PASS}
+            ADMIN_SERVER_AUDIT_MYSQL_DB: ${API_SERVER_AUDIT_MYSQL_DB}
+            ADMIN_SERVER_MC_URL: ${API_SERVER_MC_URL}
+            ADMIN_SERVER_MOUNT_PATH: ${API_SERVER_MOUNTED_PATH}
+            ADMIN_SERVER_CONSUL_URL: ${API_SERVER_CONSUL_URL}
+            ADMIN_SERVER_LOG_LEVEL: TRACE
+            ADMIN_QA_TEST_URL: ${API_QA_TEST_URL}
+            ADMIN_STATISTIC_MYSQL_URL: ${API_STATISTIC_MYSQL_URL}
+            ADMIN_STATISTIC_MYSQL_USER: ${API_STATISTIC_MYSQL_USER}
+            ADMIN_STATISTIC_MYSQL_PASS: ${API_STATISTIC_MYSQL_PASS}
+            ADMIN_STATISTIC_MYSQL_DB: ${API_STATISTIC_MYSQL_DB}
+            ADMIN_UI_AUTH_SYSTEM: ${API_UI_AUTH_SYSTEM}
+            ADMIN_UI_AUTH_SUPER_ROLE: ${API_UI_AUTH_SUPER_ROLE}
+            ADMIN_MEDIABASE_MYSQL_URL: ${API_MEDIABASE_MYSQL_URL}
+            ADMIN_MEDIABASE_MYSQL_USER: ${API_MEDIABASE_MYSQL_USER}
+            ADMIN_MEDIABASE_MYSQL_PASS: ${API_MEDIABASE_MYSQL_PASS}
+            ADMIN_MEDIABASE_MYSQL_DB: ${API_MEDIABASE_MYSQL_DB}
+            ADMIN_MEDIABASE_VOLUME: ${API_MEDIABASE_VOLUME}
+            ADMIN_MEDIABASE_LOCATION: ${API_MEDIABASE_LOCATION}
+            ADMIN_MEDIABASE_SYNC_PERIOD_BY_SECONDS: ${API_MEDIABASE_SYNC_PERIOD_BY_SECONDS}
+            ADMIN_QA_CONTROLLER_URL: ${API_QA_CONTROLLER_URL}
+            ADMIN_QA_TEST_TYPE: ${API_QA_TEST_TYPE}
+        restart: always
+
+    # === bfb-service ===
+    bfb-service:
+        image: ${BFB_IMAGE}:${BFB_TAG}
+        container_name: ${BFB_CONTAINER}
+        ports:
+            - "${BFB_PORT}:${BFB_PORT}"
+        mem_limit: 2048m
+        environment:
+            BFB_PORT: ${BFB_PORT}
+            BFB_MYSQL_DB_SERVER: ${BFB_MYSQL_DB_SERVER}
+            BFB_MYSQL_DB_USER: ${BFB_MYSQL_DB_USER}
+            BFB_MYSQL_DB_PASSWORD: ${BFB_MYSQL_DB_PASSWORD}
+            BFB_MONGO_SERVER: ${BFB_MONGO_SERVER}
+            BFB_MONGO_PORT: ${BFB_MONGO_PORT}
+            BFB_CONSUL_SERVER: ${BFB_CONSUL_SERVER}
+            BFB_CONSUL_KEY: ${BFB_CONSUL_KEY}
+            BFB_CONSUL_APP: ${BFB_CONSUL_APP}
+            BFB_CONSUL_MAPPING_TABLE: ${BFB_CONSUL_MAPPING_TABLE}
+            BFB_CONSUL_MAPPING_TABLE_ALL: ${BFB_CONSUL_MAPPING_TABLE_ALL}
+            BFB_DATABASE_TYPE: ${BFB_DATABASE_TYPE}
+            BFB_STATIC_MYSQL_DB_SERVER: ${BFB_STATIC_MYSQL_DB_SERVER}
+            BFB_STATIC_MYSQL_DB_USER: ${BFB_STATIC_MYSQL_DB_USER}
+            BFB_STATIC_MYSQL_DB_PASSWORD: ${BFB_STATIC_MYSQL_DB_PASSWORD}
+            BFB_STATIC_DFT_APPID: ${BFB_STATIC_DFT_APPID}
+        restart: always
+
+
+    old-houta:
+        image: ${OLD_HOUTA_IMAGE}:${OLD_HOUTA_TAG}
+        container_name: ${OLD_HOUTA_CONTAINER}
+        ports:
+            - "${OLD_HOUTA_PORT}:${OLD_HOUTA_WEB_PORT}"
+        mem_limit: 8192m
+        volumes:
+            - ${MC_MOUNT_FILES_PATH}:/var/www/html/Files
+        environment:
+            HT_TASK_ENGINE: ${OLD_HOUTA_TASK_ENGINE}
+            HT_WORKING_LINK: ${OLD_HOUTA_WORKING_LINK}
+            HT_WORKING_LINK1: ${OLD_HOUTA_WORKING_LINK1}
+            HT_HTTP_STORAGE: ${OLD_HOUTA_HTTP_STORAGE}
+            HT_HTTP_STORAGEWECHAT: ${OLD_HOUTA_HTTP_STORAGEWECHAT}
+            HT_HTTP_WEIMI: ${OLD_HOUTA_HTTP_WEIMI}
+            HT_HTTP_PUT: ${OLD_HOUTA_HTTP_PUT}
+            HT_HTTP_QUERY_GET: ${OLD_HOUTA_HTTP_QUERY_GET}
+            HT_FILE_PATH: ${OLD_HOUTA_FILE_PATH}
+            HT_DEBUG_PATH: ${OLD_HOUTA_DEBUG_PATH}
+            HT_HTTP_FASHION: ${OLD_HOUTA_HTTP_FASHION}
+            HT_HTTP_WAV: ${OLD_HOUTA_HTTP_WAV}
+            HT_PREFIX: ${OLD_HOUTA_PREFIX}
+            HT_OWNER: ${OLD_HOUTA_OWNER}
+            HT_CITYTAG: ${OLD_HOUTA_CITYTAG}
+            HT_WEATHER: ${OLD_HOUTA_WEATHER}
+            HT_FUNCTION_LABEL: ${OLD_HOUTA_FUNCTION_LABEL}
+            HT_VOICE_EMOTION: ${OLD_HOUTA_VOICE_EMOTION}
+            HT_SPEAKER_VERIFICATION: ${OLD_HOUTA_SPEAKER_VERIFICATION}
+            HT_HOROSCOPE: ${OLD_HOUTA_HOROSCOPE}
+            HT_COOKBOOK_LINK: ${OLD_HOUTA_COOKBOOK_LINK}
+            HT_STOCKQUERY_LINK: ${OLD_HOUTA_STOCKQUERY_LINK}
+            HT_WEB_PATH_API: ${OLD_HOUTA_WEB_PATH_API}
+            HT_SETTING_API: ${OLD_HOUTA_SETTING_API}
+            HT_PROCESS: ${OLD_HOUTA_PROCESS}
+            HT_USER_CHAT: ${OLD_HOUTA_USER_CHAT}
+            HT_IMAGE_STOREAGE: ${OLD_HOUTA_IMAGE_STOREAGE}
+            HT_SRL_NLP: ${OLD_HOUTA_SRL_NLP}
+            HT_MANUAL_EDIT: ${OLD_HOUTA_MANUAL_EDIT}
+            HT_ENTITY: ${OLD_HOUTA_ENTITY}
+            HT_TOPIC_MOOD: ${OLD_HOUTA_TOPIC_MOOD}
+            HT_BUSINESS: ${OLD_HOUTA_BUSINESS}
+            HT_BUSINESS_DOWNLOAD: ${OLD_HOUTA_BUSINESS_DOWNLOAD}
+            HT_BUSINESS_MANUAL: ${OLD_HOUTA_BUSINESS_MANUAL}
+            HT_INTENT_BACKFILL: ${OLD_HOUTA_INTENT_BACKFILL}
+            HT_LOG_OFF: ${OLD_HOUTA_LOG_OFF}
+            HT_ADMIN_STATS: ${OLD_HOUTA_ADMIN_STATS}
+            HT_ADMIN_CHAT: ${OLD_HOUTA_ADMIN_CHAT}
+            HT_SHOULD_BLOCK_CORS: ${OLD_HOUTA_SHOULD_BLOCK_CORS}
+            HT_ADMIN_IMAGE_SERVER_BASE_URL: ${OLD_HOUTA_ADMIN_IMAGE_SERVER_BASE_URL}
+            HT_DOWNLOAD_URL: ${OLD_HOUTA_DOWNLOAD_URL}
+            HT_KNOWLEDGE_CHECK: ${OLD_HOUTA_KNOWLEDGE_CHECK}
+            HT_WEB_PATH: ${OLD_HOUTA_WEB_PATH}
+            HT_DB_HOST: ${OLD_HOUTA_DB_HOST}
+            HT_MASTER_DB_HOST: ${OLD_HOUTA_MASTER_DB_HOST}
+            HT_DB_NAME: ${OLD_HOUTA_DB_NAME}
+            HT_DB_ACCOUNT: ${OLD_HOUTA_DB_ACCOUNT}
+            HT_DB_PASSWORD: ${OLD_HOUTA_DB_PASSWORD}
+            HT_AUDIT_DB_HOST: ${OLD_HOUTA_AUDIT_DB_HOST}
+            HT_AUDIT_DB_NAME: ${OLD_HOUTA_AUDIT_DB_NAME}
+            HT_AUDIT_DB_ACCOUNT: ${OLD_HOUTA_AUDIT_DB_ACCOUNT}
+            HT_AUDIT_DB_PASSWORD: ${OLD_HOUTA_AUDIT_DB_PASSWORD}
+            HT_INDEX_PATH: ${OLD_HOUTA_INDEX_PATH}
+            HT_MEDIABASE_MYSQL_URL: ${OLD_HOUTA_MEDIABASE_MYSQL_URL}
+            HT_MEDIABASE_MYSQL_USER: ${OLD_HOUTA_MEDIABASE_MYSQL_USER}
+            HT_MEDIABASE_MYSQL_PASS: ${OLD_HOUTA_MEDIABASE_MYSQL_PASS}
+            HT_MEDIABASE_MYSQL_DB: ${OLD_HOUTA_MEDIABASE_MYSQL_DB}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="11px" height="14px" viewBox="0 0 11 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>play</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="01_1场景列表" transform="translate(-1015.000000, -151.000000)" fill-rule="nonzero" stroke="#1875F0" stroke-width="1.2">
+            <g id="分组-3" transform="translate(1016.000000, 146.000000)">
+                <g id="play" transform="translate(0.000000, 5.000000)">
+                    <path d="M9.30488963,8.30931255 L10.5266795,10.0547267 C10.843394,10.507176 10.7333592,11.1307064 10.28091,11.447421 C10.1128264,11.5650794 9.91261971,11.628189 9.70744761,11.628189 L-0.451241268,11.628189 C-1.00352602,11.628189 -1.45124127,11.1804738 -1.45124127,10.628189 C-1.45124127,10.4230169 -1.38813166,10.2228102 -1.27047319,10.0547267 L3.80887125,2.79852035 C4.12558576,2.34607105 4.74911622,2.23603626 5.20156551,2.55275077 C5.29720684,2.6196997 5.38038617,2.70287903 5.44733509,2.79852035 L7.0523869,5.09145151" id="三角形" transform="translate(4.628146, 7.000043) rotate(-270.000000) translate(-4.628146, -7.000043) "></path>
+                    <path d="M4.71363579,10.6808971 L5.24212979,10.2818267" id="直线"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

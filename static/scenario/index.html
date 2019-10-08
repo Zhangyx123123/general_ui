@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html class="no-js css-menubar" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+        <meta name="description" content="Chatbots made easy.">
+        <meta name="author" content="">
+        <title>Emotibot Bot</title>
+        <link rel="stylesheet" href="./css/app.css">
+        <link rel="stylesheet" href="./css/bootstrap.min.css">
+        <link rel="stylesheet" href="./css/bootstrap-extend.min.css">
+        <link rel="stylesheet" href="./css/bootstrap-switch.min.css">
+        <link rel="stylesheet" href="./css/web-icons.min.css">
+        <link rel="stylesheet" href="./css/jquery-ui.css">
+        <script src="./js/breakpoints.js"></script>
+        <script>
+            Breakpoints();
+        </script>
+        <style>
+            .dropdown-menu {
+                max-height: 500px;
+                overflow-y: auto;
+            }
+            .tooltip-inner {
+                white-space:pre;
+                max-width:none;
+                text-align: left;
+            }
+            .ui-helper {
+                width: 500px !important;
+            }
+        </style>
+    </head>
+    <link rel="stylesheet" href="./css/font-awesome.css">
+    <link rel="stylesheet" href="./css/toastr.css">
+    <link rel="stylesheet" href="./css/site.css">
+  <body style="background-image:url('./images/gridbg.png');" class="app-taskboard">
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div style="background:none;" class="page">
+    <div class="page-content container-fluid">
+        <div id="sidepanel" style="border-left:3px solid #e1e5e5; width:500px; z-index:100; height:1500px; position:fixed; right:0px; padding:15px;" class="panel">
+            <div class="example-wrap">
+                <div class="nav-tabs-horizontal">
+                    <ul style="margin-top:5px; font-size:16px" class="nav nav-tabs" data-plugin="nav-tabs" role="tablist">
+                        <div onclick="toggleSidepanel()" id="sidepanelMinimize" style="cursor:pointer; position:absolute; font-size:40px; margin-top:-15px; right:20px">-</div>
+                        <li onclick="sidepanelHidden=true; toggleSidepanel();" class="active" role="presentation"><a data-toggle="tab" href="#addTimeModule" aria-controls="addTimeModule" role="tab"><i class="icon wb-plus" aria-hidden="true"></i>时间</a></li>
+                        <li onclick="sidepanelHidden=true; toggleSidepanel();" role="presentation"><a data-toggle="tab" href="#addPlaceModule" aria-controls="addPlaceModule" role="tab"><i class="icon wb-plus" aria-hidden="true"></i>地点</a></li>
+                        <li onclick="sidepanelHidden=true; toggleSidepanel();" role="presentation"><a data-toggle="tab" href="#addOtherModule" aria-controls="addOtherModule" role="tab"><i class="icon wb-plus" aria-hidden="true"></i>其他</a></li>
+                        <li onclick="sidepanelHidden=true; toggleSidepanel();" role="presentation"><a data-toggle="tab" href="#addFunModule" aria-controls="addFunModule" role="tab"><i class="icon wb-plus" aria-hidden="true"></i>功能</a></li>
+                    </ul>
+                    <div class="tab-content padding-top-20">
+                        <div class="tab-pane active" id="addTimeModule" role="tabpanel">
+                            <div class="panel-body" style="padding:10px">
+                                <p><b>你可以将以下的场景节点拉到故事版中</b><br><br></p>
+                                <style>.list-group-item:hover,.list-group-item:nth-child(odd):hover{background:#e6f4fa;}.list-group-item{cursor:move;padding:10px 40px;height:150px;}.list-group-item:nth-child(odd){background:#f7fbfc;}.media-body h4{margin-top:20px!important;}.media-body button.btn-lg{margin-top:25px;width:150px;}.media-body button.btn-sm{margin-top:5px;width:150px;}</style>
+                                <style>.step1 .media-body h4{font-size:14px;}.step1 .media-body{font-size:12px;}</style>
+                                <ul style="height:600px; overflow:auto;" class="list-group step1">
+                                    <li moduleid="dialogue" uimoduleid="time" onclick="" class="draggable list-group-item">
+                                        <div class="media">
+                                            <div class="media-left padding-top-20">
+                                                <img width="80" src="./images/modules/te_date.png" alt="...">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>时间</h4>
+                                                <div>用来取得时间的节点</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li moduleid="dialogue" uimoduleid="time_period" onclick="" class="draggable list-group-item">
+                                        <div class="media">
+                                            <div class="media-left padding-top-20">
+                                                <img width="80" src="./images/modules/te_time.png" alt="...">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>时间段</h4>
+                                                <div>用来取得时间段的节点</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li moduleid="dialogue" uimoduleid="CheckinDate" onclick="" class="draggable list-group-item">
+                                        <div class="media">
+                                            <div class="media-left padding-top-20">
+                                                <img width="80" src="./images/modules/te_date.png" alt="...">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>入住时间</h4>
+                                                <div>用来取得入住时间的节点</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li moduleid="dialogue" uimoduleid="CheckoutDate" onclick="" class="draggable list-group-item">
+                                        <div class="media">
+                                            <div class="media-left padding-top-20">
+                                                <img width="80" src="./images/modules/te_date.png" alt="...">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>离店时间</h4>
+                                                <div>用来取得离店时间的节点</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li moduleid="dialogue" uimoduleid="depart_date" onclick="" class="draggable list-group-item">
+                                        <div class="media">
+                                            <div class="media-left padding-top-20">
+                                                <img width="80" src="./images/modules/te_date.png" alt="...">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>出发日期</h4>
+                                                <div>用来取得出发日期的节点</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li moduleid="dialogue" uimoduleid="arrive_date" onclick="" class="draggable list-group-item">
+                                        <div class="media">
+                                            <div class="media-left padding-top-20">
+                                                <img width="80" src="./images/modules/te_date.png" alt="...">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>到达日期</h4>
+                                                <div>用来取得到达日期的节点</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li moduleid="dialogue" uimoduleid="return_date" onclick="" class="draggable list-group-item">
+                                        <div class="media">
+                                            <div class="media-left padding-top-20">
+                                                <img width="80" src="./images/modules/te_date.png" alt="...">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>回程日期</h4>
+                                                <div>用来取得回程日期的节点</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane active" id="addPlaceModule" role="tabpanel">
+                            <div class="panel-body" style="padding:10px">
+                                <p><b>你可以将以下的场景节点拉到故事版中</b><br><br></p>
+                                <style>.list-group-item:hover,.list-group-item:nth-child(odd):hover{background:#e6f4fa;}.list-group-item{cursor:move;padding:10px 40px;height:150px;}.list-group-item:nth-child(odd){background:#f7fbfc;}.media-body h4{margin-top:20px!important;}.media-body button.btn-lg{margin-top:25px;width:150px;}.media-body button.btn-sm{margin-top:5px;width:150px;}</style>
+                                <style>.step1 .media-body h4{font-size:14px;}.step1 .media-body{font-size:12px;}</style>
+                                <ul style="height:600px; overflow:auto;" class="list-group step1">
+                                    <li moduleid="dialogue" uimoduleid="city" onclick="" class="draggable list-group-item">
+                                        <div class="media">
+                                            <div class="media-left padding-top-20">
+                                                <img width="80" src="./images/modules/te_city.png" alt="...">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>城市</h4>
+                                                <div>用来取得城市的节点</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li moduleid="dialogue" uimoduleid="landmark" onclick="" class="draggable list-group-item">
+                                        <div class="media">
+                                            <div class="media-left padding-top-20">
+                                                <img width="80" src="./images/modules/te_place.png" alt="...">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>地标</h4>
+                                                <div>用来取得地标的节点</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li moduleid="dialogue" uimoduleid="from_place" onclick="" class="draggable list-group-item">
+                                        <div class="media">
+                                            <div class="media-left padding-top-20">
+                                                <img width="80" src="./images/modules/te_place.png" alt="...">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>出发地</h4>
+                                                <div>用来取得出发地的节点</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li moduleid="dialogue" uimoduleid="to_place" onclick="" class="draggable list-group-item">
+                                        <div class="media">
+                                            <div class="media-left padding-top-20">
+                                                <img width="80" src="./images/modules/te_place.png" alt="...">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>到达地点</h4>
+                                                <div>用来取得到达地点的节点</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane active" id="addOtherModule" role="tabpanel">
+                            <div class="panel-body" style="padding:10px">
+                                <p><b>你可以将以下的场景节点拉到故事版中</b><br><br></p>
+                                <style>.list-group-item:hover,.list-group-item:nth-child(odd):hover{background:#e6f4fa;}.list-group-item{cursor:move;padding:10px 40px;height:150px;}.list-group-item:nth-child(odd){background:#f7fbfc;}.media-body h4{margin-top:20px!important;}.media-body button.btn-lg{margin-top:25px;width:150px;}.media-body button.btn-sm{margin-top:5px;width:150px;}</style>
+                                <style>.step1 .media-body h4{font-size:14px;}.step1 .media-body{font-size:12px;}</style>
+                                <ul style="height:600px; overflow:auto;" class="list-group step1">
+                                    <li moduleid="dialogue" uimoduleid="number" onclick="" class="draggable list-group-item">
+                                        <div class="media">
+                                            <div class="media-left padding-top-20">
+                                                <img width="80" src="./images/modules/te_number.png" alt="...">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>数字</h4>
+                                                <div>用来取得数字的节点</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li moduleid="dialogue" uimoduleid="money" onclick="" class="draggable list-group-item">
+                                        <div class="media">
+                                            <div class="media-left padding-top-20">
+                                                <img width="80" src="./images/modules/te_money.png" alt="...">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>金钱</h4>
+                                                <div>用来取得金额的节点</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li moduleid="dialogue" uimoduleid="HotelName" onclick="" class="draggable list-group-item">
+                                        <div class="media">
+                                            <div class="media-left padding-top-20">
+                                                <img width="80" src="./images/modules/te_dialoague.png" alt="...">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>酒店名称</h4>
+                                                <div>用来取得酒店名称的节点</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li moduleid="dialogue" uimoduleid="Star" onclick="" class="draggable list-group-item">
+                                        <div class="media">
+                                            <div class="media-left padding-top-20">
+                                                <img width="80" src="./images/modules/te_star.png" alt="...">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>星级</h4>
+                                                <div>用来取得星级的节点</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane active" id="addFunModule" role="tabpanel">
+                            <div class="panel-body" style="padding:10px">
+                                <p><b>你可以将以下的场景节点拉到故事版中</b><br><br></p>
+                                <style>.list-group-item:hover,.list-group-item:nth-child(odd):hover{background:#e6f4fa;}.list-group-item{cursor:move;padding:10px 40px;height:150px;}.list-group-item:nth-child(odd){background:#f7fbfc;}.media-body h4{margin-top:20px!important;}.media-body button.btn-lg{margin-top:25px;width:150px;}.media-body button.btn-sm{margin-top:5px;width:150px;}</style>
+                                <style>.step1 .media-body h4{font-size:14px;}.step1 .media-body{font-size:12px;}</style>
+                                <ul style="height:600px; overflow:auto;" class="list-group step1">
+                                    <li moduleid="dialogue" onclick="" class="draggable list-group-item">
+                                        <div class="media">
+                                            <div class="media-left padding-top-20">
+                                                <img width="80" src="./images/modules/te_dialoague.png" alt="...">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>对话节点</h4>
+                                                <div>与使用者进行交互的节点</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li moduleid="restful" onclick="" class="draggable list-group-item">
+                                        <div class="media">
+                                            <div class="media-left padding-top-20">
+                                                <img width="80" src="./images/modules/te_dialoague.png" alt="...">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>RESTful 数据调用节点</h4>
+                                                <div>使用 RESTful 接口调用数据</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li moduleid="nlu_pc" onclick="" class="draggable list-group-item">
+                                        <div class="media">
+                                            <div class="media-left padding-top-20">
+                                                <img width="80" src="./images/modules/te_parameter_collecting.png" alt="...">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>nlu参数收集节点</h4>
+                                                <div>利用nlu接口收集所需参数的节点</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li moduleid="parameter_collecting" onclick="" class="draggable list-group-item">
+                                        <div class="media">
+                                            <div class="media-left padding-top-20">
+                                                <img width="80" src="./images/modules/te_parameter_collecting.png" alt="...">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>参数收集节点</h4>
+                                                <div>收集所需参数的节点</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li moduleid="dialogue" uimoduleid="show_vars" onclick="" class="draggable list-group-item">
+                                        <div class="media">
+                                            <div class="media-left padding-top-20">
+                                                <img width="80" src="./images/modules/te_dialoague.png" alt="...">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>显示参数</h4>
+                                                <div>用来显示所有抓取的参数的节点</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li moduleid="dialogue" uimoduleid="polarity" onclick="" class="draggable list-group-item">
+                                        <div class="media">
+                                            <div class="media-left padding-top-20">
+                                                <img width="80" src="./images/modules/te_polarity.png" alt="...">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>是否判断</h4>
+                                                <div>用来判断是、否的节点</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li moduleid="dialogue" uimoduleid="router" onclick="" class="draggable list-group-item">
+                                        <div class="media">
+                                            <div class="media-left padding-top-20">
+                                                <img width="80" src="./images/modules/te_dialoague.png" alt="...">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>转发</h4>
+                                                <div>制定规则转发给其他的节点</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btn-group" style="z-index:100; position:fixed; margin-top:70px; margin-left:-15px;">
+            <a onclick="zoomOut()" class="btn btn-outline btn-default bg-grey-100"><i class="icon wb-zoom-out" aria-hidden="true"></i></a>
+            <a onclick="zoomIn()" class="btn btn-outline btn-default bg-grey-100" type="button"><i class="icon wb-zoom-in margin-0"></i></a>
+        </div>
+        <div id="topNavBar" style="width:1000px; z-index:100; position:fixed;" class="row panel">
+            <div style="padding:15px" class="page-content container-fluid">
+                <style>#topNavBar .btn-group .btn{font-size:0!important;-webkit-transition:font-size 0.25s;background-color:white!important;}#topNavBar .btn-group .btn:hover{font-size:15px!important;}#topNavBar .btn-group .btn i{font-size:15px;}</style>
+                <div class="btn-group pull-left">
+                    <a class="btn btn-outline btn-default" href="scenario.html" type="button"><i class="icon wb-chevron-left" aria-hidden="true"></i>返回场景清单</a>
+                </div>
+                <div class="btn-group pull-right">
+                    <a href="modals/scenario_setting.html" class="btn btn-outline btn-default" onclick="resetSetting();" data-target="#scenario_setting" data-toggle="modal"><i class="icon wb-wrench" aria-hidden="true"></i> 设置</a>
+                    <a href="modals/global_confirmation.html" class="btn btn-outline btn-default" type="button" data-target="#globalConfirmMessage" data-toggle="modal"><i class="icon wb-menu"></i> 系统变量模板</a>
+                    <a href="modals/global_connection.html" class="btn btn-outline btn-default" type="button" data-target="#globalConnections" data-toggle="modal"><i class="icon wb-link-intact"></i> 通用连线</a>
+                    <a class="btn btn-outline btn-default" onclick="exportScenarioToJSONfile()" type="button"><i class="icon wb-file" aria-hidden="true"></i> 导出</a>
+                    <a class="btn btn-outline btn-default" onclick="publishScenario()" type="button"><i class="icon wb-upload" aria-hidden="true"></i> 发布</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="embedWeb" aria-hidden="true" aria-labelledby="testChat" role="dialog" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="scenario_setting" role="dialog" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="globalConnections"  role="dialog" tabindex="-1">
+            <div class="modal-dialog modal-lg" style="width:725px;">
+                <div class="modal-content" style="padding:25px">
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="globalConfirmMessage"  role="dialog" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="sortable" style="width:2000px; height:1000px;">
+        </div>
+
+        <div class="modal fade" id="configureModule"  role="dialog" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" style="padding:10px">
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="checkNodeSave">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="panel-title">是否保存节点内容
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </h3>
+                </div>
+                <div class="margin-40 margin-top-0">
+                    节点内容已被更动，请问是否需要保存？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
+                    <button type="button" class="btn btn-primary" onclick="saveModuleSetting()" data-target="#checkNodeSave" data-toggle="modal">是</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="checkSettingSave">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="panel-title">是否保存设置
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </h3>
+                </div>
+                <div class="margin-40 margin-top-0">
+                    设置已被更动，请问是否需要保存？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
+                    <button type="button" class="btn btn-primary" onclick="saveSetting();" data-target="#checkSettingSave" data-toggle="modal">是</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="checkGlobalConfirmationSave">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="panel-title">是否保存系统变量模版
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </h3>
+                </div>
+                <div class="margin-40 margin-top-0">
+                    系统变量模版已被更动，请问是否需要保存？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
+                    <button type="button" class="btn btn-primary" onclick="saveConfirmMessages();" data-target="#checkGlobalConfirmationSave" data-toggle="modal">是</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- node edit page template -->
+<div class="hidden" id="configTemplate">
+    <div id="config" class="moduleconfig">
+        <div class="panel-heading">
+        <h3 class="panel-title">
+            <span>编辑</span>
+            <button type="button" class="close" onclick="window.$('#configureModule').modal('hide');">
+            <span aria-hidden="true">×</span>
+            </button>
+        </h3>
+        </div>
+        <form class="updateModuleForm">
+        <div style="padding:0 30px 30px 30px;" class="nav-tabs-vertical">
+            <ul class="nav nav-tabs nav-tabs-line margin-right-25" data-plugin="nav-tabs" role="tablist">
+            <li id="setttings_tab" class="active" role="presentation"><a data-toggle="tab" href="#settings" role="tab"><i class="icon wb-settings" aria-hidden="true"></i>基本设置</a></li>
+            <li id="restful_setttings_tab" role="presentation"><a data-toggle="tab" href="#restful_settings" role="tab"><i class="icon wb-settings" aria-hidden="true"></i>基本设置</a></li>
+            <li id="nlu_pc_settings_tab" role="presentation"><a data-toggle="tab" href="#nlu_pc_settings" role="tab"><i class="icon wb-list-numbered" aria-hidden="true"></i>参数设置</a></li>
+            <li id="restful_connections_tab" role="presentation"><a data-toggle="tab" href="#restful_connections" role="tab"><i class="icon wb-link-intact" aria-hidden="true"></i>连线</a></li>
+            <li id="connections_tab" role="presentation"><a data-toggle="tab" href="#connections" role="tab"><i class="icon wb-link-intact" aria-hidden="true"></i>连线</a></li>
+            <li id="triggers_tab" role="presentation"><a data-toggle="tab" href="#triggers" role="tab"><i class="icon wb-grid-4" aria-hidden="true"></i>触发</a></li>
+            <li id="params_settings_tab" role="presentation"><a data-toggle="tab" href="#params_settings" role="tab"><i class="icon wb-list-numbered" aria-hidden="true"></i>参数设置</a></li>
+            <li id="params_connections_tab" role="presentation"><a data-toggle="tab" href="#params_connections" role="tab"><i class="icon wb-link-intact" aria-hidden="true"></i>连线</a></li>
+            <li id="polarity_connections_tab" role="presentation"><a data-toggle="tab" href="#polarity_connections" role="tab"><i class="icon wb-link-intact" aria-hidden="true"></i>连线</a></li>
+            </ul>
+
+
+            <div class="tab-content">
+            <div class="tab-pane" id="polarity_connections" role="tabpanel">
+                <div class="margin-top-10 well font-size-16">
+                <span style="width:85px; display:inline-block">肯定</span>是、要、对<br/>
+                <span style="width:80px; display:inline-block">则前往</span>
+                <select name="target" style="width:250px; display:inline-block !important" class="connectionSelect margin-top-10 form-control yesThenGoto"></select>
+                </div>
+                <div class="margin-top-10 well font-size-16">
+                <span style="width:85px; display:inline-block">否定</span>否、不要、不对<br/>
+                <span style="width:80px; display:inline-block">则前往</span>
+                <select name="target" style="width:250px; display:inline-block !important" class="connectionSelect margin-top-10 form-control noThenGoto"></select>
+                </div>
+                <div class="margin-top-10 well font-size-16">
+                <span style="width:85px; display:inline-block">失败</span>连续解析失败<br/>
+                <span style="width:80px; display:inline-block">次数</span>
+                <input type="text" style="width:425px; display:inline-block !important" class="form-control margin-top-10 failLimit" oninput="this.value = this.value.replace(/^0$/g, ''); this.value = this.value.replace(/[^0-9]/g, ''); this.value = this.value.replace(/(^[0-9]{1,2}).*/g, '$1');"><br/>
+                <span style="width:80px; display:inline-block">则前往</span>
+                <select name="target" style="width:250px; display:inline-block !important" class="connectionSelect margin-top-10 form-control failThenGoto"></select>
+                </div>
+            </div>
+            <div class="tab-pane" id="nlu_pc_settings" role="tabpanel">
+                <div class="sortable" id="editNLUParameters">
+                <div lastcondition="0" id="moreNLUParameter_module0"></div>
+                </div>
+                <div onclick="addMoreNLUParameter(0)" class="btn btn-lg btn-block btn-success">+ 增加参数</div>
+            </div>
+            <div class="tab-pane" id="params_settings" role="tabpanel">
+                <div class="sortable" id="editParameters">
+                <div lastcondition="0" id="moreParameter_module0"></div>
+                </div>
+                <div onclick="addMoreParameter(0)" class="btn btn-lg btn-block btn-success">+ 增加参数</div>
+            </div>
+            <div class="tab-pane" id="params_connections" role="tabpanel">
+                <div class="margin-top-10 well font-size-16">
+                <span style="width:85px; display:inline-block">成功</span>取得所有必要参数<br/>
+                <span style="width:80px; display:inline-block">则前往</span>
+                <select name="target" style="width:250px; display:inline-block !important" class="connectionSelect margin-top-10 form-control successThenGoto"></select>
+                </div>
+                <div class="margin-top-10 well font-size-16">
+                <span style="width:85px; display:inline-block">失败</span>参数连续解析失败<br/>
+                <span style="width:80px; display:inline-block">次数</span>
+                <input type="text" style="width:425px; display:inline-block !important" class="form-control margin-top-10 failLimit" oninput="this.value = this.value.replace(/^0$/g, ''); this.value = this.value.replace(/[^0-9]/g, ''); this.value = this.value.replace(/(^[0-9]{1,2}).*/g, '$1');"><br/>
+                <span style="width:80px; display:inline-block">则前往</span>
+                <select name="target" style="width:250px; display:inline-block !important" class="connectionSelect margin-top-10 form-control failThenGoto"></select>
+                </div>
+                <div class="sortable" id="editconnections">
+                <div lastcondition="0" id="moreconditions_module1"></div>
+                </div>
+                <div onclick="addMoreConditions(1)" class="btn btn-lg btn-block btn-success">+ 增加连线</div>
+            </div>
+            <div class="tab-pane active" id="settings" role="tabpanel">
+                <input type="hidden" name="id" value="">
+                <div class="row">
+                <div class="form-group col-sm-12">
+                    <h4>节点类型</h4>
+                    <input name="moduleType" value="" type="text" class="form-control round" disabled/>
+                </div>
+                </div>
+                <div class="row">
+                <div class="form-group col-sm-12">
+                    <h4>节点名称<small>（仅方便参照，不影响流程运作）</small></h4>
+                    <input name="moduleNickname" placeholder="Name" type="text" class="form-control round"/>
+                </div>
+                </div>
+                <div class="row">
+                <div class="form-group col-sm-12">
+                    <h4>预设文本<small>（进入此节点时回复给使用者的语句）</small></h4>
+                    <div class="dropdown" id="initialResponseGlobalVarsSelector" style="display:inline-block">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                        插入变量
+                    </button>
+                    </div>
+                    <div class="dropdown" style="display:inline-block">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                        插入系统变量
+                    </button>
+                    <ul class="dropdown-menu" style="max-height: 250px; overflow-y: auto; margin-top: 3px;">
+                        <li>
+                        <a href="javascript:void(0)" onClick="insertGlobalVarsIntoEditor('$item_list', this)" class="dropdown-menu-item">所有系统变量</a>
+                        </li>
+                        <li>
+                        <a href="javascript:void(0)" onClick="insertGlobalVarsIntoEditor('$msg_confirm', this)" class="dropdown-menu-item">尚未确认的系统变量</a>
+                        </li>
+                    </ul>
+                    </div>
+                    <textarea name="initialResponse" class="form-control" style="height:100px"></textarea>
+                    <a id="expertModeBtn" style="display:none" class="btn btn-info margin-top-10" onclick="toggleExpertMode();">切换专家模式</a>
+                </div>
+                </div>
+                <div class="row">
+                </div>
+                <div class="row">
+                <div class="form-group col-sm-12">
+                    <h4>语句解析</h4>
+                    <div style="margin-top:10px;">
+                    解析器：
+                    <select onchange="searchParserChange(this)" name="parserType" style="width:200px; margin-left:13px; display:inline-block !important" class="margin-bottom-10 form-control"></select><br />
+                    <div style="display:inline-block !important">
+                        提取数据（可多选）：
+                        <span name="parserTypeContent" class="name0">无</span><br/>
+                        若已提取以下任一数据则跳过出话和数据提取：
+                        <span name="requiredData" class="name0">无</span><br/>
+                        限定由此节点提取：<input type="checkbox" name="with_suffix" value="with_suffix">
+                    </div>
+                    </div>
+                </div>
+                </div>
+                <div class="row">
+                <div class="form-group col-sm-12">
+                    <h4>解析失败文本<small>（此节点的语句解析失败时，回复给使用者的语句）</small></h4>
+                    <textarea name="failureResponse" class="form-control" style="height:100px"></textarea>
+                </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="restful_settings" role="tabpanel">
+                <input type="hidden" name="id" value="">
+                <div class="row">
+                <div class="form-group col-sm-12">
+                    <h4>节点类型</h4>
+                    <input name="moduleType" value="" type="text" class="form-control round" disabled/>
+                </div>
+                </div>
+                <div class="row">
+                <div class="form-group col-sm-12">
+                    <h4>节点名称<small>（仅方便参照，不影响流程运作）</small></h4>
+                    <input name="moduleNickname" placeholder="Name" type="text" class="form-control round"/>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-12">
+                        <h4>RESTful数据调用</h4>
+                        数据存放变量 <input name="rtn_var_name" type="text" style="width:150px; display:inline-block !important" class="form-control roundLimit"><br/>
+                        调用方法 
+                            <select name="method" style="width:150px; display:inline-block !important" class="margin-top-10 margin-bottom-10 form-control">
+                                <option value="GET">GET</option>
+                                <option value="POST">POST</option>
+                                <option value="PUT">PUT</option>
+                                <option value="DELETE">DELETE</option>
+                            </select><br/>
+                        调用URL <input name="url" type="text" style="width:80%; display:inline-block !important" class="form-control roundLimit"><br/>
+                        <div id="headerNbody" style="display:none">
+                            <h5>Header</h5>
+                                Content-Type
+                                <select name="headers" style="width:300px; display:inline-block !important" class="margin-top-10 margin-bottom-10 form-control">
+                                    <option value="application/json">application/json</option>
+                                    <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+                                </select>
+                            <h5>Body</h5>
+                                <textarea name="body" class="form-control" style="height:100px"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="restful_connections" role="tabpanel">
+                <div class="margin-top-10 well font-size-16">
+                <span style="width:85px; display:inline-block">调用成功</span><br/>
+                <span style="width:80px; display:inline-block">则前往</span>
+                <select name="target" style="width:250px; display:inline-block !important" class="connectionSelect margin-top-10 form-control succeedThenGoto"></select>
+                </div>
+                <div class="margin-top-10 well font-size-16">
+                <span style="width:85px; display:inline-block">调用失败</span><br/>
+                <span style="width:80px; display:inline-block">则前往</span>
+                <select name="target" style="width:250px; display:inline-block !important" class="connectionSelect margin-top-10 form-control failedThenGoto"></select>
+                </div>
+            </div>
+            <div class="tab-pane" id="triggers" role="tabpanel">
+                <div class="sortable" id="edittriggers">
+                <div class="well">设置触发此场景的条件</div>
+                <div lastcondition="0" id="moretriggers_module0"></div>
+                </div>
+                <div onclick="addMoreTriggers(0)" class="btn btn-lg btn-block btn-success">+ 增加规则</div>
+            </div>
+            <div class="tab-pane" id="connections" role="tabpanel">
+                <div class="well">使用连线连接此节点与其他节点</div>
+                <div class="sortable" id="editconnections">
+                <div lastcondition="0" id="moreconditions_module0"></div>
+                </div>
+                <div onclick="addMoreConditions(0)" class="btn btn-lg btn-block btn-success">+ 增加连线</div>
+                <div id="exceedThenGoToDIV" class="margin-top-10 well font-size-16">
+                    <span style="width:80px; display:inline-block"><b>超过轮次</b></span>
+                    <span style="width:250px; display:inline-block !important">当此节点出话超过
+                    <input type="text" style="width:50px; display:inline-block !important" class="form-control roundLimit" oninput="this.value = this.value.replace(/^0$/g, ''); this.value = this.value.replace(/[^0-9]/g, ''); this.value = this.value.replace(/(^[0-9]{1,2}).*/g, '$1');">
+                    次
+                    </span>
+                    <span style="width:70px; display:inline-block">则前往</span>
+                    <select name="exceedThenGoTo" style="width:200px; display:inline-block !important" class="form-control exceedThenGoTo"></select>
+                </div>
+                <div class="margin-top-10 well font-size-16">
+                    <span style="width:80px; display:inline-block"><b>预设前往</b></span>
+                    <span style="width:200px; display:inline-block !important">当所有规则都无法符合时</span>
+                    <span style="width:60px; display:inline-block">则前往</span>
+                    <select name="elseGoTo" style="width:250px; display:inline-block !important" class="form-control elseGoTo">
+                        <option value="null">解析失败处理</option>
+                    </select>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button id="saveConnections_0" onclick="saveModuleSetting()" type="submit" class="btn btn-primary" data-target="#configureModule" data-toggle="modal">保存</button>
+        </div>
+        </form>
+    </div>
+</div>
+
+<textarea class="hidden" id="moreQQSentencesTemplate">
+    <div class="qq_sentences margin-bottom-10">
+    <span style="width:80px; display:inline-block">句子</span>
+    <input type="text" style="width:425px; display:inline-block !important" class="form-control">
+    <a class="btn btn-info margin-left-10"  onclick="$(this).parent().remove();">移除</a>
+    <br/>
+    <span style="width:85px; display:inline-block">则前往</span><select name="target" style="width:250px; display:inline-block !important" class="connectionSelect margin-top-10 form-control"><option value="null">do nothing</option></select>
+    </div>
+</textarea>
+
+<textarea class="hidden" id="moreRegExpTemplate">
+    <div class="reg_exp margin-bottom-10">
+    <span style="width:80px; display:inline-block">第几符合词</span>
+    <input type="text" style="width:425px; display:inline-block !important" class="form-control" value="0" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.value = this.value.replace(/(^[0-9]{1,2}).*/g, '$1');">
+    <a class="btn btn-info margin-left-10"  onclick="$(this).parent().remove();">移除</a>
+    <span style="width:80px; display:inline-block">目的键</span>
+    <input type="text" style="width:425px; display:inline-block !important" class="form-control"><br/>
+    </div>
+</textarea>
+
+
+<div class="hidden" id="moreParameterTemplate">
+    <div draggable="true" class="well font-size-16">
+    <a style="float:right" onclick="$(this).parent().remove();">
+        <i class="icon wb-close" aria-hidden="true"></i>
+    </a>
+    <div class="parser-content margin-bottom-30"><div>
+        <select onchange="searchSourceChange(this)" name="searchSource" style="display:none" class="form-control"><option value="text">用户输入文本</option></select>
+        <span style="width:80px; display:inline-block">解析器</span>
+        <select onchange="searchFunctionChange(this)" name="searchType" style="width:160px; display:inline-block !important" class="margin-bottom-10 form-control"></select>
+        <a class="andIf btn btn-info margin-left-10"  onclick="addMoreParameterParsers($(this).parent().parent())">+ 增加参数</a>
+        <div class="triggers0 margin-bottom-10">
+        <span class="name0" style="width:80px; display:inline-block">内容</span>
+        <input type="text" name="triggers0" style="width:425px; display:inline-block !important" class="form-control">
+        </div>
+        <div class="triggers1 margin-bottom-10" style="display:none">
+        <span class="name1" style="width:80px; display:inline-block">比较方式</span>
+        <input type="text" name="triggers1" style="width:425px; display:inline-block !important" class="form-control">
+        </div>
+        <div class="triggers2 margin-bottom-10" style="display:none">
+        <span class="name2" style="width:80px; display:inline-block">键</span>
+        <input type="text" name="triggers2" style="width:425px; display:inline-block !important" class="form-control">
+        </div>
+        <div class="triggers3 margin-bottom-10" style="display:none">
+        <span class="name3" style="width:80px; display:inline-block">值</span>
+        <input type="text" name="triggers3" style="width:425px; display:inline-block !important" class="form-control">
+        </div>
+        <div class="reg_exp margin-bottom-10" style="display:none">
+        <span style="width:80px; display:inline-block">第几符合词</span>
+        <input type="text" style="width:425px; display:inline-block !important" class="form-control" value="0" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.value = this.value.replace(/(^[0-9]{1,2}).*/g, '$1');">
+        <a class="btn btn-info margin-left-10"  onclick="addMoreRegExpGroup($(this).parent().parent())">+ 增加</a>
+        <span style="width:80px; display:inline-block">目的键</span>
+        <input type="text" style="width:425px; display:inline-block !important" class="form-control"><br/>
+        </div>
+    </div></div>
+    <div class="row">
+        <div class="form-group col-sm-12">
+        参数询问文本<small>（询问使用者参数的语句）</small>
+        <textarea name="parameterQuerry" class="form-control" style="height:50px"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-12">
+        解析失败文本<small>（参数解析失败时，回复给使用者的语句）</small>
+        <textarea name="parseFailQuery" class="form-control" style="height:50px"></textarea>
+        </div>
+    </div>
+    </div>
+</div>
+
+<textarea class="hidden" id="moreParameterParsersTemplate">
+    <div class="margin-top-30">
+    <select onchange="searchSourceChange(this)" name="searchSource" style="display:none" class="form-control"><option value="text">用户输入文本</option></select>
+    <span style="width:80px; display:inline-block">解析器</span>
+    <select onchange="searchFunctionChange(this)" name="searchType" style="width:160px; display:inline-block !important" class="margin-bottom-10 form-control"></select>
+    <a class="btn btn-info margin-left-10"  onclick="$(this).parent().remove();">移除</a>
+    <div class="triggers0 margin-bottom-10">
+        <span class="name0" style="width:80px; display:inline-block">内容</span>
+        <input type="text" name="triggers0" style="width:425px; display:inline-block !important" class="form-control">
+    </div>
+    <div class="triggers1 margin-bottom-10" style="display:none">
+        <span class="name1" style="width:80px; display:inline-block">比较方式</span>
+        <input type="text" name="triggers1" style="width:425px; display:inline-block !important" class="form-control">
+    </div>
+    <div class="triggers2 margin-bottom-10" style="display:none">
+        <span class="name2" style="width:80px; display:inline-block">键</span>
+        <input type="text" name="triggers2" style="width:425px; display:inline-block !important" class="form-control">
+    </div>
+    <div class="triggers3 margin-bottom-10" style="display:none">
+        <span class="name3" style="width:80px; display:inline-block">值</span>
+        <input type="text" name="triggers3" style="width:425px; display:inline-block !important" class="form-control">
+    </div>
+    <div class="reg_exp margin-bottom-10" style="display:none">
+        <span style="width:80px; display:inline-block">第几符合词</span>
+        <input type="text" style="width:425px; display:inline-block !important" class="form-control" value="0" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.value = this.value.replace(/(^[0-9]{1,2}).*/g, '$1');">
+        <a class="btn btn-info margin-left-10"  onclick="addMoreRegExpGroup($(this).parent().parent())">+ 增加</a>
+        <span style="width:80px; display:inline-block">目的键</span>
+        <input type="text" style="width:425px; display:inline-block !important" class="form-control"><br/>
+    </div>
+    </div>
+</textarea>
+
+<textarea class="hidden" id="moreNluPcEntityTemplate">
+
+    <!-- TODO new -->
+    <div draggable="true" class="well font-size-16">
+    <a style="float:right" onclick="$(this).parent().remove();">
+        <i class="icon wb-close" aria-hidden="true"></i>
+    </a>
+    <div class="if-content"><div>
+        <span class="name0" style="width:80px; display:inline-block">信息名称</span>
+        <input type="text" name="entityName" style="width:80px; display:inline-block !important" class="form-control">
+        <span class="name1" style="width:100px; display:inline-block">信息对应问句</span>
+        <input type="text" name="prompt" style="width:300px; display:inline-block !important" class="form-control">
+    </div></div>
+    </div>
+    <!-- end TODO new -->
+    </textarea>
+
+<textarea class="hidden" id="moreConditionsTemplate">
+
+    <!-- TODO new -->
+    <div draggable="true" class="well font-size-16">
+    <a style="float:right" onclick="$(this).parent().remove();">
+        <i class="icon wb-close" aria-hidden="true"></i>
+    </a>
+    <div class="if-content"><div>
+        <span style="width:80px; display:inline-block">if</span>
+        <select onchange="searchSourceChange(this)" name="searchSource" style="width:250px; display:inline-block !important" class="form-control"></select>
+        <select onchange="searchFunctionChange(this)" name="searchType" style="width:160px; display:inline-block !important" class="margin-left-10 margin-bottom-10 form-control"></select>
+        <a class="andIf btn btn-info margin-left-10"  onclick="addMoreIfCondition($(this).parent().parent())">+ and if</a>
+        <div class="triggers0 margin-bottom-10">
+        <span class="name0" style="width:80px; display:inline-block">内容</span>
+        <input type="text" name="triggers0" style="width:425px; display:inline-block !important" class="form-control">
+        </div>
+        <div class="triggers1 margin-bottom-10" style="display:none">
+        <span class="name1" style="width:80px; display:inline-block">比较方式</span>
+        <input type="text" name="triggers1" style="width:425px; display:inline-block !important" class="form-control">
+        </div>
+        <div class="triggers2 margin-bottom-10" style="display:none">
+        <span class="name2" style="width:80px; display:inline-block">键</span>
+        <input type="text" name="triggers2" style="width:425px; display:inline-block !important" class="form-control">
+        </div>
+        <div class="triggers3 margin-bottom-10" style="display:none">
+        <span class="name3" style="width:80px; display:inline-block">值</span>
+        <input type="text" name="triggers3" style="width:425px; display:inline-block !important" class="form-control">
+        </div>
+        <div class="qq_threshold margin-bottom-10" style="display:none">
+        <span style="width:80px; display:inline-block">相似度门槛</span>
+        <input type="text" name="qq_threshold" style="width:425px; display:inline-block !important" class="form-control" value="0" oninput="this.value = this.value.replace(/[^\.0-9]/g, ''); this.value = this.value.replace(/^[^01].*/g, ''); this.value = this.value.replace(/(^0(\.\d*)?|1(\.0*)?).*/g, '$1');">
+        <a class="btn btn-info margin-left-10"  onclick="addMoreQQSentences($(this).parent().parent())">+ 增加句子</a>
+        </div>
+        <div class="qq_sentences margin-bottom-10" style="display:none">
+        <span style="width:80px; display:inline-block">句子</span>
+        <input type="text" style="width:425px; display:inline-block !important" class="form-control"><br/>
+        <span style="width:85px; display:inline-block">则前往</span><select name="target" style="width:250px; display:inline-block !important" class="connectionSelect margin-top-10 form-control"><option value="null">do nothing</option></select>
+        </div>
+        <div class="reg_exp margin-bottom-10" style="display:none">
+        <span style="width:80px; display:inline-block">第几符合词</span>
+        <input type="text" style="width:425px; display:inline-block !important" class="form-control" value="0" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.value = this.value.replace(/(^[0-9]{1,2}).*/g, '$1');">
+        <a class="btn btn-info margin-left-10"  onclick="addMoreRegExpGroup($(this).parent().parent())">+ 增加</a>
+        <span style="width:80px; display:inline-block">目的键</span>
+        <input type="text" style="width:425px; display:inline-block !important" class="form-control"><br/>
+        </div>
+    </div></div>
+    <div class="thenGoto"><span style="width:85px; display:inline-block">则前往</span><select name="target" style="width:250px; display:inline-block !important" class="connectionSelect margin-top-10 form-control"><option value="null">do nothing</option></select></div>
+    </div>
+    </div>
+    <!-- end TODO new -->
+    </textarea>
+
+<textarea class="hidden" id="moreTriggersTemplate">
+
+    <!-- TODO new -->
+    <div draggable="true" class="well font-size-16">
+    <a style="float:right" onclick="$(this).parent().remove();">
+        <i class="icon wb-close" aria-hidden="true"></i>
+    </a>
+    <div class="if-content"><div>
+        <span style="width:80px; display:inline-block">if</span>
+        <select onchange="searchSourceChange(this)" name="searchSource" style="width:250px; display:inline-block !important" class="form-control"></select>
+        <select onchange="searchFunctionChange(this)" name="searchType" style="width:160px; display:inline-block !important" class="margin-left-10 margin-bottom-10 form-control"></select>
+        <a class="btn btn-info margin-left-10"  onclick="addMoreIfTrigger($(this).parent().parent())">+ and if</a>
+        <div class="triggers0 margin-bottom-10">
+        <span class="name0" style="width:80px; display:inline-block">内容</span>
+        <input type="text" name="triggers0" style="width:425px; display:inline-block !important" class="form-control">
+        </div>
+        <div class="triggers1 margin-bottom-10" style="display:none">
+        <span class="name1" style="width:80px; display:inline-block">比较方式</span>
+        <input type="text" name="triggers1" style="width:425px; display:inline-block !important" class="form-control">
+        </div>
+        <div class="triggers2 margin-bottom-10" style="display:none">
+        <span class="name2" style="width:80px; display:inline-block">键</span>
+        <input type="text" name="triggers2" style="width:425px; display:inline-block !important" class="form-control">
+        </div>
+        <div class="triggers3 margin-bottom-10" style="display:none">
+        <span class="name3" style="width:80px; display:inline-block">值</span>
+        <input type="text" name="triggers3" style="width:425px; display:inline-block !important" class="form-control">
+        </div>
+        <div class="reg_exp margin-bottom-10" style="display:none">
+        <span style="width:80px; display:inline-block">第几符合词</span>
+        <input type="text" style="width:425px; display:inline-block !important" class="form-control" value="0" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.value = this.value.replace(/(^[0-9]{1,2}).*/g, '$1');">
+        <a class="btn btn-info margin-left-10"  onclick="addMoreRegExpGroup($(this).parent().parent())">+ 增加</a>
+        <span style="width:80px; display:inline-block">目的键</span>
+        <input type="text" style="width:425px; display:inline-block !important" class="form-control"><br/>
+        </div>
+    </div></div>
+    </div>
+    <!-- end TODO new -->
+    </textarea>
+
+<textarea class="hidden" id="moreIfConditionTemplate">
+
+    <div class="margin-top-30">
+    <span style="width:80px; display:inline-block">and if</span>
+    <select onchange="searchSourceChange(this)" name="searchSource" style="width:250px; display:inline-block !important" class="form-control"></select>
+    <select onchange="searchFunctionChange(this)" name="searchType" style="width:160px; display:inline-block !important" class="margin-left-10 margin-bottom-10 form-control"></select>
+    <a class="btn btn-info margin-left-10"  onclick="$(this).parent().remove();">移除</a>
+    <div class="triggers0 margin-bottom-10">
+        <span class="name0" style="width:80px; display:inline-block">内容</span>
+        <input type="text" name="triggers0" style="width:425px; display:inline-block !important" class="form-control">
+    </div>
+    <div class="triggers1 margin-bottom-10" style="display:none">
+        <span class="name1" style="width:80px; display:inline-block">比较方式</span>
+        <input type="text" name="triggers1" style="width:425px; display:inline-block !important" class="form-control">
+    </div>
+    <div class="triggers2 margin-bottom-10" style="display:none">
+        <span class="name2" style="width:80px; display:inline-block">键</span>
+        <input type="text" name="triggers2" style="width:425px; display:inline-block !important" class="form-control">
+    </div>
+    <div class="triggers3 margin-bottom-10" style="display:none">
+        <span class="name3" style="width:80px; display:inline-block">值</span>
+        <input type="text" name="triggers3" style="width:425px; display:inline-block !important" class="form-control">
+    </div>
+    <div class="reg_exp margin-bottom-10" style="display:none">
+        <span style="width:80px; display:inline-block">第几符合词</span>
+        <input type="text" style="width:425px; display:inline-block !important" class="form-control" value="0" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.value = this.value.replace(/(^[0-9]{1,2}).*/g, '$1');">
+        <a class="btn btn-info margin-left-10"  onclick="addMoreRegExpGroup($(this).parent().parent())">+ 增加</a>
+        <span style="width:80px; display:inline-block">目的键</span>
+        <input type="text" style="width:425px; display:inline-block !important" class="form-control"><br/>
+    </div>
+    </div>
+
+    </textarea>
+
+<textarea class="hidden" id="moreIfTriggerTemplate">
+
+    <div class="margin-top-30">
+    <span style="width:80px; display:inline-block">and if</span>
+    <select onchange="searchSourceChange(this)" name="searchSource" style="width:250px; display:inline-block !important" class="form-control"></select>
+    <select onchange="searchFunctionChange(this)" name="searchType" style="width:160px; display:inline-block !important" class="margin-left-10 margin-bottom-10 form-control"></select>
+    <a class="btn btn-info margin-left-10"  onclick="$(this).parent().remove();">移除</a>
+    <div class="triggers0 margin-bottom-10">
+        <span class="name0" style="width:80px; display:inline-block">内容</span>
+        <input type="text" name="triggers0" style="width:425px; display:inline-block !important" class="form-control">
+    </div>
+    <div class="triggers1 margin-bottom-10" style="display:none">
+        <span class="name1" style="width:80px; display:inline-block">比较方式</span>
+        <input type="text" name="triggers1" style="width:425px; display:inline-block !important" class="form-control">
+    </div>
+    <div class="triggers2 margin-bottom-10" style="display:none">
+        <span class="name2" style="width:80px; display:inline-block">键</span>
+        <input type="text" name="triggers2" style="width:425px; display:inline-block !important" class="form-control">
+    </div>
+    <div class="triggers3 margin-bottom-10" style="display:none">
+        <span class="name3" style="width:80px; display:inline-block">值</span>
+        <input type="text" name="triggers3" style="width:425px; display:inline-block !important" class="form-control">
+    </div>
+    <div class="reg_exp margin-bottom-10" style="display:none">
+        <span style="width:80px; display:inline-block">第几符合词</span>
+        <input type="text" style="width:425px; display:inline-block !important" class="form-control" value="0" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.value = this.value.replace(/(^[0-9]{1,2}).*/g, '$1');">
+        <a class="btn btn-info margin-left-10"  onclick="addMoreRegExpGroup($(this).parent().parent())">+ 增加</a>
+        <span style="width:80px; display:inline-block">目的键</span>
+        <input type="text" style="width:425px; display:inline-block !important" class="form-control"><br/>
+    </div>
+    </div>
+
+</textarea>
+
+<script src="./js/jquery.min.js"></script>
+<script src="./js/jquery.form.js"></script>
+<script src="./js/jquery-ui.min.js"></script>
+<script>
+    $.widget.bridge('uitooltip', $.ui.tooltip);
+</script>
+<script src="./js/bootstrap.js"></script>
+<script src="./js/bootstrap-switch.min.js"></script>
+<script src="./js/toastr.js"></script>
+<script src="./js/jquery.connections.js"></script>
+<script src="./js/bootstrap3-typeahead.min.js"></script>
+<script src="./lib/js/global.js"></script>
+<script src="./js/he.js"></script>
+<script src="./js/index.js"></script>
+
+<link rel="stylesheet" href="./css/bootstrap-multiselect.css" type="text/css"/>
+<link rel="stylesheet" href="./modals/edit_node/index.css" type="text/css"/>
+<script type="text/javascript" src="./js/bootstrap-multiselect.js"></script>
+<script type="text/javascript" src="./modals/edit_node/index.js"></script>
+
+</body>
+</html>

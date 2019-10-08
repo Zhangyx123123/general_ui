@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="19px" viewBox="0 0 26 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47 (45396) - http://www.bohemiancoding.com/sketch -->
+    <title>robot_on</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="机器人首页" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-12.000000, -100.000000)" id="side">
+            <g transform="translate(0.000000, 50.000000)">
+                <g id="1" transform="translate(0.000000, 40.000000)">
+                    <g id="robot_off" transform="translate(12.000000, 11.000000)">
+                        <g id="robot_on">
+                            <rect id="Rectangle-22" stroke="#FFFFFF" stroke-width="1.63137255" x="6.23235294" y="6.10980392" width="13.5352941" height="11.0745098" rx="2.44705882"></rect>
+                            <rect id="Rectangle-24" fill="#FFFFFF" x="9.75" y="10.5882353" width="2.16666667" height="2.11764706" rx="0.407843137"></rect>
+                            <rect id="Rectangle-24" fill="#FFFFFF" x="14.0833333" y="10.5882353" width="2.16666667" height="2.11764706" rx="0.407843137"></rect>
+                            <rect id="Rectangle-23" fill="#FFFFFF" x="2.70833333" y="8.47058824" width="1.625" height="6.35294118" rx="0.8125"></rect>
+                            <rect id="Rectangle-23" fill="#FFFFFF" x="21.6666667" y="8.47058824" width="1.625" height="6.35294118" rx="0.8125"></rect>
+                            <rect id="Rectangle-23" fill="#FFFFFF" x="0" y="9.52941176" width="1.625" height="4.23529412" rx="0.8125"></rect>
+                            <rect id="Rectangle-23" fill="#FFFFFF" x="24.375" y="9.52941176" width="1.625" height="4.23529412" rx="0.8125"></rect>
+                            <rect id="Rectangle-25" fill="#FFFFFF" x="12.4583333" y="2.11764706" width="1.625" height="3.17647059"></rect>
+                            <path d="M8.94740002,0.248587879 C10.3918445,1.66035258 11.8362889,2.36623494 13.2807334,2.36623494 C14.7251778,2.36623494 16.1696222,1.66035258 17.6140667,0.248587879" id="Line" stroke="#FFFFFF" stroke-width="1.625" stroke-linecap="round"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

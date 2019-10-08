@@ -1,0 +1,91 @@
+version: '3'
+services:
+  admin-ui:
+    image: docker-reg.emotibot.com.cn:55688/admin-ui:ac298e6-20180919-1723
+    container_name: admin-ui
+    ports:
+      - 80:80
+    environment:
+      - ADMIN_HTTP_PORT=80
+      # - port admin-api running in docker
+      - ADMIN_SERVER_PORT=8181
+      # - URL which will used by admin-api to verify the token
+      - ADMIN_SERVER_AUTH_URL=http://127.0.0.1:8088/auth/v2/token
+      # - Main DB of admin-api
+      - ADMIN_SERVER_MYSQL_URL=${MYSQL_HOST}:${MYSQL_PORT}
+      - ADMIN_SERVER_MYSQL_USER=${MYSQL_USER}
+      - ADMIN_SERVER_MYSQL_PASS=${MYSQL_PASS}
+      - ADMIN_SERVER_MYSQL_DB=emotibot
+      # - Audit DB of admin-api
+      - ADMIN_SERVER_AUDIT_MYSQL_URL=${MYSQL_HOST}:${MYSQL_PORT}
+      - ADMIN_SERVER_AUDIT_MYSQL_USER=${MYSQL_USER}
+      - ADMIN_SERVER_AUDIT_MYSQL_PASS=${MYSQL_PASS}
+      - ADMIN_SERVER_AUDIT_MYSQL_DB=emotibot
+      # - CONSUL setting, all module setting will in PREFIX(idc) folder
+      # - but deploy version information is in root
+      - ADMIN_SERVER_CONSUL_URL=http://${CONSUL_HOST}:${CONSUL_PORT}
+      - ADMIN_SERVER_CONSUL_PREFIX=idc
+      # - Log level of admin-api
+      - ADMIN_SERVER_LOG_LEVEL=TRACE
+      - ADMIN_SERVER_MOUNT_PATH=/api/File
+      # - Used for qa-test in UI. TEST_TYPE can be following type
+      #    - "DC":         Use ADMIN_QA_TEST_URL
+      #    - "OPENAPI":    Use ADMIN_QA_OPENAPI_TEST_URL
+      #    - "CONTROLLER": Use ADMIN_QA_CONTROLLER_URL
+      #    - "BFOP":       Use ADMIN_QA_CONTROLLER_URL
+      # - different type will has different input format
+      - ADMIN_QA_TEST_TYPE=BFOP
+      - ADMIN_QA_TEST_URL=http://172.17.0.1:10901/robot
+      - ADMIN_QA_CONTROLLER_URL=http://${EC_HOST}:${EC_PORT}/v1/QAtest
+      # - Statistic DB for admin-api
+      - ADMIN_STATISTIC_MYSQL_URL=${MYSQL_HOST}:${MYSQL_PORT}
+      - ADMIN_STATISTIC_MYSQL_USER=${MYSQL_USER}
+      - ADMIN_STATISTIC_MYSQL_PASS=${MYSQL_PASS}
+      - ADMIN_STATISTIC_MYSQL_DB=backend_log
+      # - bot-factory-backend-service position for task-engine API
+      - ADMIN_TASK_SERVER_URL=http://${BFB_HOST}:15501
+      # - bot-factory-backend-service position for statistic, which is used in nginx.conf
+      - ADMIN_STAT_SERVER_URL=${BFB_HOST}:15501
+      # - new elk statistic env, used in nginx.conf
+      - ADMIN_ELK_STAT_SERVER_URL=127.0.0.1:8200
+      # - BF2.0 position, used in nginx.conf
+      - ADMIN_BF_SERVER_URL=${BF2_HOST}:80
+      # - IM position, used in nginx.conf
+      - ADMIN_IM_SERVER_URL=${IM_ADMIN_HOST}:8080
+      # - Main DB for token-auth
+      - ADMIN_AUTH_MYSQL_URL=${MYSQL_HOST}:${MYSQL_PORT}
+      - ADMIN_AUTH_MYSQL_USER=${MYSQL_USER}
+      - ADMIN_AUTH_MYSQL_PASS=${MYSQL_PASS}
+      - ADMIN_AUTH_MYSQL_DB=auth
+      # - Port which token-auth is run
+      - ADMIN_AUTH_PORT=8088
+      # - Audit DB for token-auth
+      - ADMIN_AUTH_AUDIT_MYSQL_URL=${MYSQL_HOST}:${MYSQL_PORT}
+      - ADMIN_AUTH_AUDIT_MYSQL_USER=${MYSQL_USER}
+      - ADMIN_AUTH_AUDIT_MYSQL_PASS=${MYSQL_PASS}
+      - ADMIN_AUTH_AUDIT_MYSQL_DB=emotibot
+      # - Token will expired after ADMIN_AUTH_TIMEOUT seconds
+      # - If not set, default value is 6400
+      - ADMIN_AUTH_TIMEOUT=86400
+      # - the url which will used in consul value idc/cnlu/<appid>
+      # - which can let NLU get words via this URL
+      - ADMIN_DICTIONARY_INTERNAL_SERVER=http://${ADMIN_HOST}:${ADMIN_PORT}
+      # - service URL for admin-api for following work
+      # - import robot profile into solr
+      - ADMIN_SERVICE_NLU=http://${SNLU_HOST}:13901/
+      - ADMIN_SERVICE_SOLRETL=http://${SOLRETL_HOST}:1337
+      # - traning service for intent-engine and rule-engine
+      - ADMIN_INTENTS_INTENT_ENGINE_URL=http://${IE_HOST}:15001
+      - ADMIN_INTENTS_RULE_ENGINE_URL=http://172.17.0.1:15002
+      # - env for setting elasticsearch entrypoint
+      - ADMIN_SERVER_ELASTICSEARCH_HOST=${ES_HOST}
+      - ADMIN_SERVER_ELASTICSEARCH_PORT=${ES_PORT}
+      # - env for DAL module host
+      - ADMIN_STATS_DAL_URL=http://${DAL_HOST}:8885/
+      # - env for Clustering tool host
+      - ADMIN_CLUSTERING_TOOL_URL=http://${CLUSTER_HOST}:13014/
+    logging:
+      driver: json-file
+      options:
+        max-file: '10'
+        max-size: 1M

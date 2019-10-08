@@ -1,0 +1,71 @@
+#intent-tester-pop{
+  display: flex;
+  flex-direction: column;
+  color: $text-color;
+  width: 100%;
+  height: 100%;
+  min-width: 700px;
+  min-height: 500px;
+
+  .intent-tester-title{
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    font-size: 30px;
+    color: $main-color;
+  }
+  .intent-tester-box{
+    position: relative;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $main-color;
+    padding: 20px;
+
+    .label{
+      font-size: 20px;
+      color: $text-hightlight-color;
+      padding: 10px;
+    }
+
+    .row-container{
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: row;
+      margin-left: 20px;
+      input {
+        flex: 1 1 auto;
+        padding-left: 10px;
+        height: 30px;
+        color: black;
+        font-size: 18px;
+      }
+      .predicted-intent {
+        background: $item-color-green;
+        border: 1px solid $light-main;
+      }
+      .btn-basic{
+        flex: 0 0 auto;
+        width: 100px;
+        height: 30px;
+        border: 1px solid $text-color;
+        border-radius: 0px;
+      }
+      .btn-hidden{
+        visibility: hidden;
+      }
+    }
+    .btn-upload{
+      position: absolute;
+      left: 20px;
+      bottom: 10px;
+      flex: 0 0 auto;
+      width: 200px;
+      height: 30px;
+      border: 1px solid $text-color;
+      border-radius: 0px;
+    }
+  }
+}

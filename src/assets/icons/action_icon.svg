@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="60" viewBox="0 0 40 60">
+    <defs>
+        <linearGradient id="b" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#222169" stop-opacity="0"/>
+            <stop offset="100%" stop-opacity=".1"/>
+        </linearGradient>
+        <rect id="a" width="5.755" height="13.515" y="3.099" rx="2.877"/>
+        <rect id="c" width="5.755" height="13.515" x="19.153" y="3.099" rx="2.877"/>
+        <linearGradient id="e" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#403F9F" stop-opacity="0"/>
+            <stop offset="100%" stop-opacity=".2"/>
+        </linearGradient>
+        <path id="d" d="M6.001 0h12.907c3.314 0 6 2.698 6 6.026 0 .698-.12 1.39-.357 2.046l-3.967 11.035a8.573 8.573 0 0 1-8.061 5.685h-.136a8.573 8.573 0 0 1-8.061-5.685L.358 8.072C-.767 4.942.847 1.49 3.963.358A5.976 5.976 0 0 1 6.001 0z"/>
+        <path id="f" d="M12.543 8.705l2.248-2.871a.086.086 0 0 1 .154.053v10.067a.086.086 0 0 1-.165.034l-2.268-5.309a.086.086 0 0 0-.148-.018l-2.246 2.99a.086.086 0 0 1-.155-.053V3.53a.086.086 0 0 1 .165-.034l2.268 5.19a.086.086 0 0 0 .147.02z"/>
+        <path id="g" d="M10.736 22.382h6.528v2.582h-6.528z"/>
+        <linearGradient id="i" x1="50%" y1="50%" y2="50%">
+            <stop offset="0%" stop-opacity=".5"/>
+            <stop offset="100%" stop-color="#222169" stop-opacity="0"/>
+        </linearGradient>
+        <ellipse id="h" cx="24.564" cy="14.376" rx="3.436" ry="3.443"/>
+        <linearGradient id="k" x1="50%" x2="0%" y1="50%" y2="50%">
+            <stop offset="0%" stop-opacity=".5"/>
+            <stop offset="100%" stop-color="#222169" stop-opacity="0"/>
+        </linearGradient>
+        <ellipse id="j" cx="3.436" cy="14.376" rx="3.436" ry="3.443"/>
+        <path id="l" d="M15.106 6.026a32.233 32.233 0 0 0-2.212 0l.56-3.572a1.287 1.287 0 1 1 1.091 0l.561 3.572z"/>
+        <path id="m" d="M25.853 10.846c0 6.567 0 11.88-11.853 11.88S2.147 17.413 2.147 10.846c0-6.542 23.706-6.542 23.706 0z"/>
+        <linearGradient id="o" x1="50%" x2="50%" y1="-24.809%" y2="25.162%">
+            <stop offset="0%" stop-color="#D6DFEA"/>
+            <stop offset="100%" stop-color="#222169"/>
+        </linearGradient>
+        <path id="p" d="M1.89 11.96c2.736-.857 6.802-1.286 12.196-1.286s9.46.429 12.196 1.286v5.659c-2.737.65-6.802.975-12.196.975s-9.46-.325-12.196-.975V11.96z"/>
+        <linearGradient id="r" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#C74D75" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#AF3B6E" stop-opacity=".289"/>
+        </linearGradient>
+        <ellipse id="q" cx="14.086" cy="14.634" rx="1.288" ry="1.291"/>
+        <ellipse id="s" cx="19.239" cy="14.634" rx="1.288" ry="1.291"/>
+        <ellipse id="t" cx="8.933" cy="14.634" rx="1.288" ry="1.291"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <path fill="#FFF" fill-opacity=".01" fill-rule="nonzero" d="M0 0h40v60H0z"/>
+        <ellipse cx="20" cy="58.278" fill="#F0F0F6" rx="12.454" ry="1.722"/>
+        <g transform="translate(7.546 24.878)">
+            <use fill="#222169" xlink:href="#a"/>
+            <use fill="url(#b)" xlink:href="#a"/>
+        </g>
+        <g transform="translate(7.546 24.878)">
+            <use fill="#222169" xlink:href="#c"/>
+            <use fill="url(#b)" xlink:href="#c"/>
+        </g>
+        <g transform="translate(7.546 24.878)">
+            <use fill="#403F9F" xlink:href="#d"/>
+            <use fill="url(#e)" xlink:href="#d"/>
+        </g>
+        <g transform="translate(7.546 24.878)">
+            <use fill="#222169" xlink:href="#f"/>
+            <use fill="url(#b)" xlink:href="#f"/>
+        </g>
+        <g transform="translate(6)">
+            <use fill="#222169" xlink:href="#g"/>
+            <use fill="url(#b)" xlink:href="#g"/>
+            <use fill="#403F9F" xlink:href="#h"/>
+            <use fill="url(#e)" xlink:href="#h"/>
+            <use fill="url(#i)" xlink:href="#h"/>
+            <use fill="#403F9F" xlink:href="#j"/>
+            <use fill="url(#e)" xlink:href="#j"/>
+            <use fill="url(#k)" xlink:href="#j"/>
+            <use fill="#222169" xlink:href="#l"/>
+            <use fill="url(#b)" xlink:href="#l"/>
+            <mask id="n" fill="#fff">
+                <use xlink:href="#m"/>
+            </mask>
+            <use fill="#403F9F" xlink:href="#m"/>
+            <use fill="url(#e)" xlink:href="#m"/>
+            <ellipse cx="14" cy="4.735" fill="#201F61" mask="url(#n)" rx="3.693" ry="3.702"/>
+            <path fill="url(#o)" d="M1.89 11.24c2.736-.951 6.802-1.427 12.196-1.427s9.46.476 12.196 1.426v6.274c-2.737.72-6.802 1.081-12.196 1.081s-9.46-.36-12.196-1.081v-6.274z" mask="url(#n)" opacity=".2"/>
+            <g mask="url(#n)">
+                <use fill="#222169" xlink:href="#p"/>
+                <use fill="url(#b)" xlink:href="#p"/>
+            </g>
+            <g mask="url(#n)">
+                <use fill="#FF6663" xlink:href="#q"/>
+                <use fill="url(#r)" xlink:href="#q"/>
+            </g>
+            <g mask="url(#n)">
+                <use fill="#FF6663" xlink:href="#s"/>
+                <use fill="url(#r)" xlink:href="#s"/>
+            </g>
+            <g mask="url(#n)">
+                <use fill="#FF6663" xlink:href="#t"/>
+                <use fill="url(#r)" xlink:href="#t"/>
+            </g>
+        </g>
+    </g>
+</svg>

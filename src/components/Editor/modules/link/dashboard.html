@@ -1,0 +1,12 @@
+<form @submit.prevent="createLink">
+    <div>{{$parent.locale["show_text"]}}
+        <input type="text" :placeholder="$parent.locale['please enter text']" v-model="data.text" maxlength="1024">
+    </div>
+    <div>
+        {{$parent.locale["url"]}}：
+        <input type="text" :placeholder="$parent.locale['please enter a url']" v-model="url" maxlength="1024">
+    </div>
+    <div>
+        <button type="submit">{{$parent.locale["create link"]}}</button>
+    </div>
+</form>

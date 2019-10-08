@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="11px" viewBox="0 0 12 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>明细</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="part1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1_5任务列表" transform="translate(-1127.000000, -576.000000)" fill="#BABABA">
+            <g id="Group-20-+-语料不足-Mask" transform="translate(20.000000, 134.000000)">
+                <g id="Group" transform="translate(0.000000, 280.000000)">
+                    <g id="Group-4" transform="translate(1084.000000, 38.000000)">
+                        <g id="Group-3" transform="translate(23.000000, 122.000000)">
+                            <g id="明细" transform="translate(0.000000, 2.000000)">
+                                <rect id="Rectangle-2" x="0" y="0" width="12" height="3" rx="1"></rect>
+                                <rect id="Rectangle-2" x="0" y="4" width="12" height="3" rx="1"></rect>
+                                <rect id="Rectangle-2" x="0" y="8" width="12" height="3" rx="1"></rect>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

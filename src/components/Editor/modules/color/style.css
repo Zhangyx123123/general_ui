@@ -1,0 +1,22 @@
+.vue-html5-editor .color-card {
+  margin: 2px;
+  width: 15px;
+  height: 15px;
+  float: left;
+  cursor: pointer;
+}
+
+.vue-html5-editor .color-reset-card {
+  width: 155px;
+  border: 1px solid black;
+  text-align: center;
+  margin-bottom: 2px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.vue-html5-editor .color-container {
+  float: left;
+  margin-right: 20px;
+  width: 155px;
+}

@@ -1,0 +1,132 @@
+user  nginx;
+worker_processes  5;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format auth_header 'NGINX: [$time_local] “$request”  auth:"$user_id@$auth_cookie" from:"$remote_addr $http_x_forwarded_for" '
+                      'ret:"code:$status size:$body_bytes_sent" info:[$http_referer][$http_user_agent]';
+
+#    access_log  /var/log/nginx/access.log  main;
+    access_log /dev/null;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  1000;
+
+    #gzip  on;
+
+    #include /etc/nginx/conf.d/*.conf;
+
+    client_max_body_size 100M;
+
+    # rate limit setting, 150 request per second
+    limit_req_zone  $binary_remote_addr  zone=req_one:10m rate=150r/s;
+    # server {
+    #     listen 80;
+    #     listen [::]:80;
+
+    #     # redirect to HTTPS
+    #     rewrite ^(.*) https://$host$1 permanent;
+    # }
+
+    server {
+        access_log /var/log/nginx/access.log auth_header;
+        proxy_max_temp_file_size 0;
+        set $auth_cookie "";
+        set $user_id "";
+        if ($http_cookie ~* "appid=([a-z0-9]+)(?:;|$)") {
+            set $auth_cookie $1;
+        }
+
+        if ($http_cookie ~* "userid=([.%\-a-zA-Z0-9_]+)(?:;|$)") {
+            set $user_id $1;
+        }
+
+        if ($http_authorization != "") {
+            set $auth_cookie $http_authorization;
+        }
+        if ($http_x_userid != "") {
+            set $user_id $http_x_userid;
+        }
+
+        listen 80;
+        listen [::]:80;
+        location /admin {
+            # auth_request /auth/v1/appid/validate;
+            proxy_pass http://172.17.0.1:8088;
+            proxy_set_header Authorization $auth_cookie;
+            proxy_set_header X-Appid $auth_cookie;
+            proxy_set_header X-UserID $user_id;
+            proxy_set_header X-Real-IP $remote_addr;
+        }
+
+        location /auth/v1/appid/validate {
+            proxy_pass http://172.17.0.1:8088;
+            proxy_pass_request_body off;
+            proxy_set_header Authorization $auth_cookie;
+            proxy_set_header X-UserID $user_id;
+            proxy_set_header X-Real-IP $remote_addr;
+        }
+        
+        location /stats {
+            proxy_pass http://172.17.0.1:15501;
+        }
+
+        location /auth {
+            # auth_request /auth/v1/appid/validate
+            proxy_pass http://172.17.0.1:8088;
+            proxy_set_header Authorization $auth_cookie;
+            proxy_set_header X-Appid $auth_cookie;
+            proxy_set_header X-UserID $user_id;
+            proxy_set_header X-Real-IP $remote_addr;
+        }
+
+        location /Files {
+            proxy_pass http://172.17.0.1:8089;
+        }
+
+        location /php/ {
+            rewrite \/php\/(.*) /$1 break;
+            proxy_set_header Host 172.17.0.1;
+            proxy_set_header X-Appid $auth_cookie;
+            proxy_set_header X-UserID $user_id;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_pass http://172.17.0.1:8089;
+        }
+
+        location /api {
+            proxy_set_header Authorization $auth_cookie;
+            proxy_set_header X-Appid $auth_cookie;
+            proxy_set_header X-UserID $user_id;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_pass http://${SELF_IP}:8181;
+        }
+
+        # Used for task-engine
+        location /BF/ {
+            proxy_set_header Host 172.17.0.1;
+            proxy_set_header X-Appid $auth_cookie;
+            proxy_set_header X-UserID $user_id;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_pass http://172.17.0.1:8089;
+        }
+
+        location / {
+            proxy_pass http://${SELF_IP}:8080;
+        }
+
+        ## error_page 403 /403.html;
+    }
+}

@@ -1,0 +1,50 @@
+def runtimeImage=''
+pipeline {
+    agent{
+        node('docker-build01')
+    } 
+    environment {
+        // credential from "harbor login test"
+        DOCKER_SECRECT=credentials('500bc2f5-9bf7-485a-9748-30998e62e8fb')
+    }
+    stages {
+        stage('build image') {
+            steps{
+                sh 'cd docker && source ./util.sh && build_folder `pwd`/build docker'
+            }
+        }
+        stage('runtime image') {
+            steps{
+                script{
+                    runtimeImage = sh(returnStdout: true, script: 'cd docker && source ./util.sh && build_folder `pwd`/runtime docker | tail -n 1').trim()
+                }
+            }
+            
+        }
+        stage('push runtime image') {
+            steps{
+                sh 'echo "${DOCKER_SECRECT_PSW}" | docker login -u ${DOCKER_SECRECT_USR} --password-stdin harbor.emotibot.com'
+                sh """
+                    docker push ${runtimeImage}
+                """
+            }
+        }
+    }
+    post {
+        cleanup {
+            sh '''
+                set +e
+                docker logout harbor.emotibot.com
+            '''
+        }
+        success {
+            sh './jenkins/sendSlack.sh success'
+        }
+        failure {
+            sh './jenkins/sendSlack.sh'
+        }
+        unstable {
+            sh './Jenkins/sendSlack.sh'
+        }
+    }
+}

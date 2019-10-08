@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  general-node-base:
+    image: ${IMAGE_NAME}
+    build:
+      context: "${BUILD_ROOT}"
+      dockerfile: "${BUILD_ROOT}/docker/base/Dockerfile"

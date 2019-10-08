@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="16px" viewBox="0 0 15 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>权限</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="用戶管理" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="用戶管理--編輯" transform="translate(-15.000000, -701.000000)">
+            <g id="sideBar" transform="translate(0.000000, 50.000000)">
+                <g id="Group">
+                    <g id="menu_l1" transform="translate(0.000000, 640.000000)">
+                        <g id="优化" transform="translate(15.000000, 11.000000)">
+                            <g id="权限">
+                                <rect id="Rectangle" stroke="#BABABA" stroke-width="2" x="4" y="1" width="7" height="7" rx="1"></rect>
+                                <rect id="Rectangle-12" fill="#BABABA" x="0" y="6" width="15" height="10" rx="1"></rect>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

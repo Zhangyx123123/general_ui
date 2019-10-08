@@ -1,0 +1,25 @@
+// global variables
+$base-color: #F2F2F2;
+$darker-base: darken($base-color, 15%);
+$error-color: red;
+$main-color: #2b2b2b; 
+$light-main: lighten($main-color, 15%);
+$bar-color: #f2f4f8;
+$side-menu-color: #fcfcfc;
+$side-menu-hightlight-background-color: #ffffff;
+$window-color: #ffffff;
+$text-color: #666666;
+$text-hightlight-color: #1875f0;
+$text-clickable-color: #0076BA;
+$item-color-green: #E3F6EA;
+$item-color-grey: #E8E8E8;
+$button-green: #F5FCE9;
+$input-placeholder-color: #C8C8C8;
+
+$button-color: white;
+$button-primary: #118EEB;
+$button-hover-background-color: rgba(118,131,143,.1);
+
+#wizard_mode {
+  height: 100%;
+}

@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="65" height="63" viewBox="0 0 65 63">
+    <defs>
+        <path id="b" d="M24 70h1232a4 4 0 0 1 4 4v762a4 4 0 0 1-4 4H24a4 4 0 0 1-4-4V74a4 4 0 0 1 4-4z"/>
+        <filter id="a" width="101.2%" height="101.9%" x="-.6%" y="-1%" filterUnits="objectBoundingBox">
+            <feOffset in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="2.5"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0.4 0 0 0 0 0.4 0 0 0 0 0.4 0 0 0 0.08 0"/>
+        </filter>
+        <path id="c" d="M0 0h344v50H0z"/>
+        <filter id="d" width="100.3%" height="102%" x="-.1%" y="-1%" filterUnits="objectBoundingBox">
+            <feOffset dy="-1" in="SourceAlpha" result="shadowOffsetInner1"/>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" k2="-1" k3="1" operator="arithmetic" result="shadowInnerInner1"/>
+            <feColorMatrix in="shadowInnerInner1" values="0 0 0 0 0.91372549 0 0 0 0 0.91372549 0 0 0 0 0.91372549 0 0 0 1 0"/>
+        </filter>
+        <path id="e" d="M0 0h344v50H0z"/>
+        <filter id="f" width="100.3%" height="102%" x="-.1%" y="-1%" filterUnits="objectBoundingBox">
+            <feOffset dy="-1" in="SourceAlpha" result="shadowOffsetInner1"/>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" k2="-1" k3="1" operator="arithmetic" result="shadowInnerInner1"/>
+            <feColorMatrix in="shadowInnerInner1" values="0 0 0 0 0.91372549 0 0 0 0 0.91372549 0 0 0 0 0.91372549 0 0 0 1 0"/>
+        </filter>
+        <rect id="h" width="490" height="317" rx="4"/>
+        <filter id="g" width="111%" height="117%" x="-5.5%" y="-8.5%" filterUnits="objectBoundingBox">
+            <feOffset in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="9"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.240942029 0"/>
+        </filter>
+        <rect id="i" width="80" height="28" rx="2"/>
+        <rect id="k" width="80" height="28" rx="2"/>
+        <path id="n" d="M0 0h200v150H0z"/>
+        <filter id="m" width="121%" height="128%" x="-10.5%" y="-14%" filterUnits="objectBoundingBox">
+            <feOffset in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="7"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"/>
+        </filter>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <path fill="#EEE" d="M-723-386H557v860H-723z"/>
+        <g transform="translate(-723 -386)">
+            <use fill="#000" filter="url(#a)" xlink:href="#b"/>
+            <use fill="#FFF" xlink:href="#b"/>
+        </g>
+        <g transform="translate(-129 -36)">
+            <use fill="#FCFCFC" xlink:href="#c"/>
+            <use fill="#000" filter="url(#d)" xlink:href="#c"/>
+        </g>
+        <text fill="#000" font-family="PingFangHK-Regular, PingFang HK" font-size="14" transform="translate(-129 -36)">
+            <tspan x="10" y="30">Abc123@emotibot.com</tspan>
+        </text>
+        <path fill="#666" d="M-129-36h344v49h-344z" style="mix-blend-mode:screen"/>
+        <g>
+            <g transform="translate(-129 14)">
+                <use fill="#FCFCFC" xlink:href="#e"/>
+                <use fill="#000" filter="url(#f)" xlink:href="#e"/>
+            </g>
+            <text fill="#000" font-family="PingFangHK-Regular, PingFang HK" font-size="14" transform="translate(-129 14)">
+                <tspan x="10" y="30">Abc123@emotibot.com</tspan>
+            </text>
+            <g fill="#666" style="mix-blend-mode:screen">
+                <path d="M-129 14h344v49h-344z"/>
+            </g>
+        </g>
+        <g fill="#000" fill-opacity=".5">
+            <path d="M-723-386H557v860H-723z"/>
+        </g>
+        <g>
+            <g transform="translate(-328 -114)">
+                <use fill="#000" filter="url(#g)" xlink:href="#h"/>
+                <use fill="#FFF" xlink:href="#h"/>
+            </g>
+            <text fill="#333" font-family="PingFangHK-Regular, PingFang HK" font-size="20" transform="translate(-328 -114)">
+                <tspan x="30" y="51">新增帳號</tspan>
+            </text>
+            <g transform="translate(52 145)">
+                <mask id="j" fill="#fff">
+                    <use xlink:href="#i"/>
+                </mask>
+                <g fill="#4B4B64" mask="url(#j)">
+                    <rect width="80" height="28" rx="4"/>
+                </g>
+                <g fill="#FFF" fill-opacity="0" mask="url(#j)">
+                    <rect width="80" height="28" rx="4"/>
+                </g>
+                <g font-family="PingFangSC-Regular, PingFang SC" font-size="12" mask="url(#j)">
+                    <text transform="translate(-35.763 5)">
+                        <tspan x="58" y="13" fill="#FFF">下一步</tspan>
+                    </text>
+                </g>
+            </g>
+            <g transform="translate(-38 145)">
+                <mask id="l" fill="#fff">
+                    <use xlink:href="#k"/>
+                </mask>
+                <g stroke="#E9E9E9" mask="url(#l)">
+                    <rect width="79" height="27" x=".5" y=".5" rx="4"/>
+                </g>
+                <g fill="#FFF" fill-opacity="0" mask="url(#l)">
+                    <rect width="80" height="28" rx="4"/>
+                </g>
+                <g font-family="PingFangSC-Regular, PingFang SC" font-size="12" mask="url(#l)">
+                    <text transform="translate(-35.763 5)">
+                        <tspan x="64" y="13" fill="#666">取消</tspan>
+                    </text>
+                </g>
+            </g>
+            <g>
+                <g transform="translate(-68 -35)">
+                    <use fill="#000" filter="url(#m)" xlink:href="#n"/>
+                    <use fill="#FFF" xlink:href="#n"/>
+                </g>
+                <g fill="#65748D">
+                    <path d="M51 35c7.724 0 14 6.276 14 14s-6.276 14-14 14-14-6.276-14-14 6.276-14 14-14zm0 2.25c-6.483 0-11.75 5.267-11.75 11.75S44.517 60.75 51 60.75 62.75 55.483 62.75 49 57.483 37.25 51 37.25z"/>
+                    <path fill-rule="nonzero" d="M24 28.833c-8 0-14.333-6.5-14.333-14.333S16 0 24 0s14.333 6.5 14.333 14.333c0 7.834-6.333 14.5-14.333 14.5zm0-26C17.667 2.833 12.333 8 12.333 14.5S17.5 26.167 24 26.167 35.667 21 35.667 14.5 30.333 2.833 24 2.833z"/>
+                    <path d="M24 28.833c-11.5 0-20.833 9.334-20.833 20.834v3.166a.5.5 0 0 1-.5.5H.833a.5.5 0 0 1-.5-.5v-3.166C.333 36.667 11 26 24 26c8.02 0 15.15 4.059 19.438 10.22a14.085 14.085 0 0 0-2.2 1.75C37.49 32.457 31.166 28.833 24 28.833z"/>
+                    <path fill-rule="nonzero" d="M53.852 42a3.973 3.973 0 0 0-3.968 3.968c0 .874.287 1.68.768 2.337l-5.473 5.473a.61.61 0 1 0 .863.863l.179-.179 1.094 1.095a.608.608 0 0 0 .864 0 .61.61 0 0 0 0-.863l-1.095-1.095.968-.968 1.095 1.094a.608.608 0 0 0 .863 0 .61.61 0 0 0 0-.863l-1.094-1.094 2.6-2.6a3.939 3.939 0 0 0 2.336.768 3.973 3.973 0 0 0 3.968-3.968A3.973 3.973 0 0 0 53.852 42zm0 6.358a2.392 2.392 0 0 1-2.39-2.39 2.392 2.392 0 0 1 2.39-2.39 2.392 2.392 0 0 1 2.39 2.39 2.392 2.392 0 0 1-2.39 2.39z"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

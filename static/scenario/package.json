@@ -1,0 +1,36 @@
+{
+  "name": "scenario",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scenario.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --watch",
+    "scss": "node-sass --watch scss -o css"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "qs": "^6.5.1",
+    "tiny-cookie": "^2.1.1",
+    "vue-cookie": "^1.1.4",
+    "vue-on-toast": "^1.0.0-alpha.1",
+    "vue-router": "^3.0.1",
+    "vue-select": "^2.4.0",
+    "vue-uuid": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "css-loader": "^0.28.10",
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.20.2",
+    "vue-i18n": "^7.5.0",
+    "vue-loader": "^14.1.1",
+    "vue-template-compiler": "^2.5.13",
+    "webpack": "^3.11.0"
+  }
+}

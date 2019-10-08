@@ -1,0 +1,256 @@
+user  nginx;
+worker_processes  5;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format auth_header 'NGINX: [$time_local] "$request" from:"$remote_addr $http_x_forwarded_for" '
+                      'ret:"code:$status size:$body_bytes_sent" info:[$http_referer][$http_user_agent]';
+    underscores_in_headers on;
+
+    access_log /dev/null;
+
+    sendfile        on;
+
+    keepalive_timeout  1000;
+
+    client_max_body_size 100M;
+
+    limit_req_zone  $binary_remote_addr  zone=req_one:10m rate=150r/s;
+
+    server {
+        access_log /var/log/nginx/access.log auth_header;
+        proxy_max_temp_file_size 0;
+        listen 80;
+        listen [::]:80;
+        set $appid "";
+        set $user_id "";
+        set $enterprise_id "";
+        if ($http_cookie ~* "appid=([a-z0-9]+)(?:;|$)") {
+            set $appid $1;
+        }
+
+        if ($appid = "") {
+            set $appid $http_x_appid;
+        }
+
+        if ($http_cookie ~* "userid=([.%\-a-zA-Z0-9_]+)(?:;|$)") {
+            set $user_id $1;
+        }
+
+        if ($http_x_userid != "") {
+            set $user_id $http_x_userid;
+        }
+
+        if ($http_cookie ~* "enterprise=([.%\-a-zA-Z0-9_]+)(?:;|$)") {
+            set $enterprise_id $1;
+        }
+
+        if ($enterprise_id = "") {
+            set $enterprise_id $http_x_enterprise;
+        }
+
+        if ($enterprise_id = "") {
+            set $enterprise_id $http_x_enterpriseid;
+        }
+
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Appid $appid;
+        proxy_set_header X-UserID $user_id;
+        proxy_set_header X-EnterpriseID $enterprise_id;
+        add_header X-Frame-Options SAMEORIGIN;
+
+        location /stats {
+            proxy_pass http://${REMOTE_IP}:8200;
+        }
+        location /admin {
+            proxy_pass http://${REMOTE_IP};
+        }
+        location /utils/testing {
+            rewrite /utils/(.*) /$1  break;
+            proxy_pass http://${UTILS_IP};
+            proxy_redirect     off;
+            proxy_set_header   Host $host;
+        }
+        location = /php/api/ApiKey/tde_register.php {
+            proxy_set_header Authorization $appid;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Appid $appid;
+            proxy_set_header X-UserID $user_id;
+            proxy_pass http://${REMOTE_IP}:10999/tde/register;
+        }
+        location /php/api/ApiKey/task_engine_app.php {
+            proxy_set_header Authorization $appid;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Appid $appid;
+            proxy_set_header X-UserID $user_id;
+            proxy_pass http://127.0.0.1/api/v1/task/apps;
+        }
+        location /php/api/ApiKey/task_engine_scenario.php {
+            proxy_set_header Authorization $appid;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Appid $appid;
+            proxy_set_header X-UserID $user_id;
+            proxy_pass http://127.0.0.1/api/v1/task/scenarios;
+        }
+        location /php/api/ApiKey/scenario_json_upload.php {
+            proxy_set_header Authorization $appid;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Appid $appid;
+            proxy_set_header X-UserID $user_id;
+            proxy_pass http://127.0.0.1/api/v1/task/scenarios-upload;
+        }
+        location /php/api/ApiKey/mapping_table_list.php {
+            proxy_set_header Authorization $appid;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Appid $appid;
+            proxy_set_header X-UserID $user_id;
+            proxy_pass http://127.0.0.1/api/v2/task/mapping-tables;
+        }
+        location /php/api/ApiKey/mapping_table_download.php {
+            proxy_set_header Authorization $appid;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Appid $appid;
+            proxy_set_header X-UserID $user_id;
+            proxy_pass http://127.0.0.1/api/v1/task/mapping-table/export;
+        }
+        location /php/api/ApiKey/mapping_table_upload.php {
+            proxy_set_header Authorization $appid;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Appid $appid;
+            proxy_set_header X-UserID $user_id;
+            proxy_pass http://127.0.0.1/api/v1/task/mapping-table/upload;
+        }
+        location /php/api/ApiKey/mapping_table_delete.php {
+            proxy_set_header Authorization $appid;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Appid $appid;
+            proxy_set_header X-UserID $user_id;
+            proxy_pass http://127.0.0.1/api/v1/task/mapping-table/delete;
+        }
+        location /php {
+            proxy_pass http://${REMOTE_IP};
+        }
+        location /auth {
+            proxy_pass http://${AUTH_IP};
+        }
+        location /login/ {
+            proxy_pass http://${REMOTE_IP}:8888;
+        }
+        location /login.html {
+            proxy_pass http://${SELF_IP}:8080;
+        }
+        location /BF/scenario {
+            proxy_pass http://${REMOTE_IP};
+        }
+        location = /BF/login.html {
+            return 301 http://${SELF_IP}/login.html;
+        }
+        location = /im-admin/login {
+            return 301 http://${SELF_IP}/login.html;
+        }
+        location /im-admin {
+            proxy_pass http://${REMOTE_IP};
+        }
+
+        location /xeonKG {
+            proxy_pass http://${KG_IP};
+        }
+
+        location /xeonKgDal {
+            proxy_pass http://${KG_NEW_IP};
+        }
+
+        location /api/v1/kbqa {
+            proxy_pass http://${KBQA_IP};
+        }
+
+        location /ssm.html {
+            rewrite ^/ssm.html(.*) /faq/#/ssm redirect;
+        }
+        location /history.html {
+            rewrite ^/history.html(.*) /faq/#/history redirect;
+            break;
+        }
+        location /faq/ssm/ {
+            proxy_set_header   Host    $host;
+            proxy_set_header   X-Real-IP   $remote_addr;
+            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_pass  http://${SSM_SERVER_IP}/ssm/;
+        }
+        location /faq/api/ {
+            proxy_set_header   Host    $host;
+            proxy_set_header   X-Real-IP   $remote_addr;
+            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_pass  http://${API_IP}/api/;
+        }
+        location /faq/auth/ {
+            proxy_set_header   Host    $host;
+            proxy_set_header   X-Real-IP   $remote_addr;
+            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_pass  http://${AUTH_IP}/auth/;
+        }
+        location /faq/ {
+            proxy_pass http://${SSM_UI_IP}/;
+            proxy_set_header   Host    $host;
+            proxy_set_header   X-Real-IP   $remote_addr;
+            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+        }
+        location /static/ueditor1.4.3.3 {
+            proxy_pass http://${SSM_UI_IP};
+            proxy_set_header   Host    $host;
+            proxy_set_header   X-Real-IP   $remote_addr;
+            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+        }
+        location /ccs-manage {
+            rewrite ^/ccs-manage(.*) /ccs/ redirect;
+        }
+        location /ccs/ {
+            proxy_pass http://${CCS_UI_IP}/;
+            proxy_set_header   Host    $host;
+            proxy_set_header   X-Real-IP   $remote_addr;
+            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+        }
+        location /ccsDal {
+            proxy_pass http://${CCS_DAL_IP};
+        }
+        location /ccsapi{
+            proxy_pass http://${CCS_CONTROLLER_IP};
+        }
+        location /validate {
+            proxy_pass http://${CCS_DIVERTER_IP};
+        }
+        location /check/bot {
+            proxy_pass http://${CCS_DIVERTER_IP};
+        }
+
+        location /Files/sq/images {
+            proxy_pass http://${API_IP}/api/v1/media/image;
+        }
+        location /Files {
+            proxy_pass http://${API_IP};
+        }
+        location /api {
+            proxy_pass http://${API_IP};
+        }
+        location / {
+            proxy_pass http://${SELF_IP}:8080;
+        }
+    }
+}

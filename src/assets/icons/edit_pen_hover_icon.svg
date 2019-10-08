@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="12px" viewBox="0 0 13 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>03 Icon/07 Graphic/EditPen-Icon Copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M3.00440676,12.2967432 L10.1032561,5.22629236 L12.7703764,7.88748342 L5.68026756,14.9845819 L3.00440676,14.9845819 L3.00440676,12.2967432 Z M12.3277897,3.0047422 L14.9866699,5.65982911 L13.6572477,6.98683713 L10.9979564,4.33269616 L12.3277897,3.0047422 Z" id="path-1"></path>
+    </defs>
+    <g id="場景列表2.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="2" transform="translate(-402.000000, -96.000000)">
+            <g id="03-Icon/07-Graphic/EditPen-Icon" transform="translate(399.832971, 93.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Combined-Shape" fill="#FFFFFF" fill-rule="nonzero" xlink:href="#path-1"></use>
+                <g id="13-Palette/input-Select/Hover" mask="url(#mask-2)" fill="#9393A2" fill-rule="evenodd">
+                    <rect id="Rectangle-Copy-9" x="0" y="0" width="18" height="18"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

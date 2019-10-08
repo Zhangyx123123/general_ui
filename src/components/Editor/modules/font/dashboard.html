@@ -1,0 +1,27 @@
+<div class="dashboard-font" style="line-height: 36px;" @click="clickOutside">
+    <div>
+        <div>
+            <label>
+                {{$parent.locale["font size"]}} :
+            </label>
+            <input id="font-size" type="number" min=1 max=409 v-model="setSize" @keyup="checkSizeValue">
+            <div class="size-select">
+                <div class="size-select-button" @click="toggleShowList">&#9660;</div>
+                <div class="size-select-list" v-if="showTextSizeList">
+                    <div class="size-select-option" v-for="size in fontSizeList" @click="selectSize(size)">{{size}}</div>
+                </div>
+            </div>
+                
+            <button type="button" @click="setFontSize(setSize)"> {{$parent.locale.save}} </button>
+            <span style="color: gray; font-size: 0.8em;">{{$parent.locale["font desc"]}}</span>
+        </div>
+    </div>
+    <!-- <div>
+        <label>
+            {{$parent.locale["line height"]}}:
+        </label>
+        <button v-for="lh in lineHeightList" type="button" @click="setLineHeight(lh)">
+            {{lh}}
+        </button>
+    </div> -->
+</div>

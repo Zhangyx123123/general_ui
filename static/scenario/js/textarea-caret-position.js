@@ -1,0 +1,10 @@
+(function(){var properties=['direction','boxSizing','width','height','overflowX','overflowY','borderTopWidth','borderRightWidth','borderBottomWidth','borderLeftWidth','borderStyle','paddingTop','paddingRight','paddingBottom','paddingLeft','fontStyle','fontVariant','fontWeight','fontStretch','fontSize','fontSizeAdjust','lineHeight','fontFamily','textAlign','textTransform','textIndent','textDecoration','letterSpacing','wordSpacing','tabSize','MozTabSize'];var isBrowser=(typeof window!=='undefined');var isFirefox=(isBrowser&&window.mozInnerScreenX!=null);function getCaretCoordinates(element,position,options){if(!isBrowser){throw new Error('textarea-caret-position#getCaretCoordinates should only be called in a browser');}
+var debug=options&&options.debug||false;if(debug){var el=document.querySelector('#input-textarea-caret-position-mirror-div');if(el){el.parentNode.removeChild(el);}}
+var div=document.createElement('div');div.id='input-textarea-caret-position-mirror-div';document.body.appendChild(div);var style=div.style;var computed=window.getComputedStyle?getComputedStyle(element):element.currentStyle;style.whiteSpace='pre-wrap';if(element.nodeName!=='INPUT')
+style.wordWrap='break-word';style.position='absolute';if(!debug)
+style.visibility='hidden';properties.forEach(function(prop){style[prop]=computed[prop];});if(isFirefox){if(element.scrollHeight>parseInt(computed.height))
+style.overflowY='scroll';}else{style.overflow='hidden';}
+div.textContent=element.value.substring(0,position);if(element.nodeName==='INPUT')
+div.textContent=div.textContent.replace(/\s/g,'\u00a0');var span=document.createElement('span');span.textContent=element.value.substring(position)||'.';div.appendChild(span);var coordinates={top:span.offsetTop+ parseInt(computed['borderTopWidth']),left:span.offsetLeft+ parseInt(computed['borderLeftWidth'])};if(debug){span.style.backgroundColor='#aaa';}else{document.body.removeChild(div);}
+return coordinates;}
+if(typeof module!='undefined'&&typeof module.exports!='undefined'){module.exports=getCaretCoordinates;}else if(isBrowser){window.getCaretCoordinates=getCaretCoordinates;}}());

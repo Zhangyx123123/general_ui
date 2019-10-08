@@ -1,0 +1,108 @@
+@import "styles/variable";
+
+.time-picker {
+  display: inline-block;
+  position: relative;
+  font-size: 1em;
+  width: 10em;
+  font-family: sans-serif;
+  vertical-align: middle;
+  * {
+    box-sizing: border-box;
+  }
+  .clear-btn {
+    position: absolute;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin-top: -0.15em;
+    z-index: 3;
+    font-size: 1.1em;
+    line-height: 1em;
+    vertical-align: middle;
+    width: 1.3em;
+    color: #d2d2d2;
+    background: rgba(255, 255, 255, 0);
+    text-align: center;
+    font-style: normal;
+    -webkit-transition: color .2s;
+    transition: color .2s;
+    &:hover {
+      color: #797979;
+      cursor: pointer;
+    }
+  }
+  .time-picker-overlay {
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  .dropdown {
+    @include floatMenu();
+    color: $color-font-normal;
+    top: calc(30px + 10px);
+    left: 0;
+    background: #fff;
+    border: 1px solid $color-borderline;
+    border-radius: 2px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
+    width: 10em;
+    height: 10em;
+    font-weight: normal;
+    .select-list {
+      width: 10em;
+      height: 10em;
+      overflow: hidden;
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: stretch;
+      justify-content: space-between;
+    }
+    ul {
+      padding: 5px 0;
+      margin: 0;
+      list-style: none;
+      flex: 1;
+      overflow-x: hidden;
+      overflow-y: auto;
+      @include customScrollbar();
+      &.minutes, &.seconds, &.apms {
+        border-left: 1px solid #fff;
+      }
+      li {
+        text-align: center;
+        padding: 0.3em 0;
+        color: #161616;
+        &:not(.hint):not(.disabled):hover {
+          background: $color-borderline;
+          color: #161616;
+          cursor: pointer;
+        }
+        &.active {
+          background: $color-button;
+          color: #fff;
+          &:not(.disabled):hover {
+            color: #fff;
+            background: $color-button;
+          }
+        }
+        &.disabled {
+          color: #ddd;
+          cursor: default;
+        }
+      }
+    }
+    .hint {
+      color: #a5a5a5;
+      cursor: default;
+      font-size: 0.8em;
+    }
+  }
+}

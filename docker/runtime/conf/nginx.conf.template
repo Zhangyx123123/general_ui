@@ -1,0 +1,413 @@
+#user  nginx;
+worker_processes  10;
+
+error_log  /var/log/nginx/error.log warn;
+#pid        /var/run/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+    resolver ${NAMESERVER};
+
+    log_format auth_header 'NGINX: [$time_local] “$request”  auth:"$user_id@$http_x_appid" from:"$remote_addr $http_x_forwarded_for" '
+                      'ret:"code:$status size:$body_bytes_sent" info:[$http_referer][$http_user_agent]';
+    underscores_in_headers on;
+#    access_log  /var/log/nginx/access.log  main;
+    access_log /dev/null;
+    rewrite_log on;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    #include /etc/nginx/conf.d/*.conf;
+
+    client_max_body_size 10M;
+
+    # rate limit setting, 150 request per second
+    limit_req_zone  $binary_remote_addr  zone=req_one:10m rate=150r/s;
+    # server {
+    #     listen 80;
+    #     listen [::]:80;
+
+    #     # redirect to HTTPS
+    #     rewrite ^(.*) https://$host$1 permanent;
+    # }
+    map $http_upgrade $connection_upgrade {
+        default upgrade;
+        '' close;
+    }
+
+
+    upstream elk_stat_server_url {
+        dynamic_resolve fallback=stale fail_timeout=30s;
+        server "${ADMIN_ELK_STAT_SERVER_URL}";
+    }
+
+    upstream knowledge_kbqa_url {
+        dynamic_resolve fallback=stale fail_timeout=30s;
+        server "${ADMIN_KNOWLEDGE_KBQA_URL}";
+    }
+
+    upstream knowledge_graph_url {
+        dynamic_resolve fallback=stale fail_timeout=30s;
+        server "${ADMIN_KNOWLEDGE_GRAPH_URL}";
+    }
+
+    upstream utils_server_url {
+        dynamic_resolve fallback=stale fail_timeout=30s;
+        server "${ADMIN_UTILS_URL}";
+    }
+
+    upstream admin_ssm_dac {
+        dynamic_resolve fallback=stale fail_timeout=30s;
+        server "${ADMIN_SSM_DAC_URL}";
+    }
+
+    upstream admin_ssm_ui {
+        dynamic_resolve fallback=stale fail_timeout=30s;
+        server "${ADMIN_SSM_UI_URL}";
+    }
+
+    upstream admin_ccs_ui{
+        dynamic_resolve fallback=stale fail_timeout=30s;
+        server "${ADMIN_CCS_UI_URL}";
+    }
+
+    upstream admin_ccs_dal {
+        dynamic_resolve fallback=stale fail_timeout=30s;
+        server "${ADMIN_CCS_DAL_URL}";
+    }
+
+    upstream admin_ccs_controller {
+        dynamic_resolve fallback=stale fail_timeout=30s;
+        server "${ADMIN_CCS_CONTROLLER_URL}";
+    }
+
+    upstream admin_ccs_diverter {
+        dynamic_resolve fallback=stale fail_timeout=30s;
+        server "${ADMIN_CCS_DIVERTER_URL}";
+    }
+
+    upstream admin_lqcheck_conflict {
+        dynamic_resolve fallback=stale fail_timeout=30s;
+        server "${ADMIN_LQCHECK_CONFLICT_CHECK_URL}";
+    }
+
+    server {
+        access_log /var/log/nginx/access.log auth_header;
+
+        set $appid "";
+        set $user_id "";
+        set $enterprise_id "";
+
+        if ($http_cookie ~* "appid=([a-z0-9]+)(?:;|$)") {
+            set $appid $1;
+        }
+
+        if ($appid = "") {
+            set $appid $http_x_appid;
+        }
+
+        if ($http_cookie ~* "userid=([.%\-a-zA-Z0-9_]+)(?:;|$)") {
+            set $user_id $1;
+        }
+
+        if ($http_x_userid != "") {
+            set $user_id $http_x_userid;
+        }
+
+        if ($http_cookie ~* "enterprise=([.%\-a-zA-Z0-9_]+)(?:;|$)") {
+            set $enterprise_id $1;
+        }
+
+        if ($enterprise_id = "") {
+            set $enterprise_id $http_x_enterprise;
+        }
+
+        if ($enterprise_id = "") {
+            set $enterprise_id $http_x_enterpriseid;
+        }
+
+        set $im_server_url "${ADMIN_IM_SERVER_URL}";
+        set $im_msg_kf "${ADMIN_IM_MSG_KF_URL}";
+        set $im_web_agent "${ADMIN_IM_WEB_AGENT}";
+
+        listen 80;
+        #listen [::]:80;
+        proxy_set_header X-AppID $appid;
+        proxy_set_header X-UserID $user_id;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-EnterpriseID $enterprise_id;
+        add_header X-Frame-Options SAMEORIGIN;
+        add_header Content-Security-Policy "img-src 'self' blob: data:; default-src 'self' 'unsafe-inline' 'unsafe-eval' data:;";
+
+        location /admin {
+            # auth_request /auth/v1/appid/validate;
+            proxy_pass http://127.0.0.1:8088;
+        }
+
+        location /auth {
+            # auth_request /auth/v1/appid/validate
+            proxy_pass http://127.0.0.1:8088;
+        }
+
+
+        location /stats {
+            proxy_pass http://elk_stat_server_url;
+        }
+
+        # ========== legacy houta ==========
+        location = /php/api/ApiKey/task_engine_app.php {
+            proxy_pass http://127.0.0.1:8181/api/v1/task/apps;
+        }
+        location = /php/api/ApiKey/task_engine_scenario.php {
+            proxy_pass http://127.0.0.1:8181/api/v1/task/scenarios;
+        }
+        location = /php/api/ApiKey/scenario_json_upload.php {
+            proxy_pass http://127.0.0.1:8181/api/v1/task/scenarios-upload;
+        }
+        location = /php/api/ApiKey/mapping_table_list.php {
+            proxy_set_header Authorization $appid;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Appid $appid;
+            proxy_set_header X-UserID $user_id;
+            proxy_pass http://127.0.0.1:8181/api/v2/task/mapping-tables;
+        }
+        location = /php/api/ApiKey/mapping_table_upload.php {
+            proxy_set_header Authorization $appid;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Appid $appid;
+            proxy_set_header X-UserID $user_id;
+            proxy_pass http://127.0.0.1:8181/api/v1/task/mapping-table/upload;
+        }
+        location = /php/api/ApiKey/mapping_table_delete.php {
+            proxy_set_header Authorization $appid;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Appid $appid;
+            proxy_set_header X-UserID $user_id;
+            proxy_pass http://127.0.0.1:8181/api/v1/task/mapping-table/delete;
+        }
+        location = /php/api/ApiKey/mapping_table_download.php {
+            proxy_set_header Authorization $appid;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Appid $appid;
+            proxy_set_header X-UserID $user_id;
+            proxy_pass http://127.0.0.1:8181/api/v1/task/mapping-table/export;
+        }
+        location = /php/api/ApiKey/tde_register.php {
+            proxy_set_header Authorization $appid;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Appid $appid;
+            proxy_set_header X-UserID $user_id;
+            proxy_pass http://172.17.0.1:10999/tde/register;
+        }
+        location = /php/api/ApiKey/spreadsheet.php {
+            proxy_set_header Authorization $appid;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Appid $appid;
+            proxy_set_header X-UserID $user_id;
+            proxy_pass http://127.0.0.1:8181/api/v1/task/spreadsheet;
+        }
+
+        # legacy php code, from 2.0 UI
+        location ~ ^/php/ {
+            if ($appid = "") {
+                return 401;
+            }
+            if ($user_id = "") {
+                return 401;
+            }
+            # TODO: handle invalid cookie/user_id
+
+            set $is_exists 0;
+            rewrite \/php\/(.*) /$1 break;
+
+            include fastcgi_params;
+            fastcgi_param HTTP_HOST 172.17.0.1;
+            fastcgi_param HTTP_X_APPID $appid;
+            fastcgi_param HTTP_X_USERID $user_id;
+            fastcgi_param HTTP_X_REAL_IP $remote_addr;
+
+            root /build/dist;
+            fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+
+            # since rewrite might cause leading / and proxy pass will cause double //, check even root/scrip or rootscrip either.
+            if (-f $document_root$fastcgi_script_name) {
+                set $is_exists 1;
+            }
+            if (-f $document_root/$fastcgi_script_name) {
+                set $is_exists 1;
+            }
+
+            if ($is_exists != 1) {
+                return 404;
+            }
+
+            fastcgi_pass 127.0.0.1:9000;
+            fastcgi_param REQUEST_METHOD $request_method;
+            fastcgi_param SCRIPT_FILENAME $fastcgi_script_name;
+            fastcgi_param QUERY_STRING $query_string;
+            # fastcgi_param SERVER_NAME 172.17.0.1;
+        }
+
+        # response/sdk(vip-adapter) call directly without any auth cookie
+        location ~ ^/(api/ApiKey|api/APP)/ {
+            root /build/dist;
+            include fastcgi_params;
+            fastcgi_pass 127.0.0.1:9000;
+            fastcgi_param REQUEST_METHOD $request_method;
+            fastcgi_param SCRIPT_FILENAME $fastcgi_script_name;
+            fastcgi_param QUERY_STRING $query_string;
+            fastcgi_param SERVER_NAME 172.17.0.1;
+        }
+
+        location = /im-admin/login {
+            rewrite ^.*$ /login.html;
+        }
+        location /BF/scenario {
+            root   /build/dist;
+            index  index.html index.htm;
+        }
+        location /xeonKgDal {
+            proxy_pass http://knowledge_graph_url;
+        }
+        location /api/v1/kbqa {
+            proxy_pass http://knowledge_kbqa_url;
+        }
+
+        location /utils/testing {
+            rewrite /utils/(.*) /$1  break;
+            proxy_pass http://utils_server_url;
+            proxy_redirect     off;
+            proxy_set_header   Host $host;
+        }
+
+        location /im-admin {
+            proxy_set_header   Host    $host;
+            proxy_set_header   X-Real-IP   $remote_addr;
+            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_pass http://$im_server_url;
+        }
+        location /msg-kf/ {
+            proxy_pass http://$im_msg_kf/;
+            proxy_set_header   Host    $host;
+            proxy_set_header   X-Real-IP   $remote_addr;
+            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+        }
+        location /web-agent/ {
+            proxy_pass http://$im_web_agent/;
+            proxy_set_header   Host    $host;
+            proxy_set_header   X-Real-IP   $remote_addr;
+            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+        }
+
+        location /ssm.html {
+            rewrite ^/ssm.html(.*) ${http_referer}faq/#/ssm redirect;
+        }
+        location /history.html {
+            rewrite ^/history.html(.*) ${http_referer}faq/#/history redirect;
+        }
+        location /faq/ssm/ {
+            proxy_set_header   Host    $host;
+            proxy_set_header   X-Real-IP   $remote_addr;
+            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_http_version 1.1;
+            proxy_pass  http://admin_ssm_dac/ssm/;
+        }
+        location /faq/api/ {
+            add_header Cache-Control no-store;
+            add_header Cache-Control private;
+            proxy_pass  http://127.0.0.1:8181/api/;
+        }
+        location /faq/auth/ {
+            proxy_set_header   Host    $host;
+            proxy_set_header   X-Real-IP   $remote_addr;
+            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_pass  http://127.0.0.1:8088/auth/;
+        }
+        location /faq/ {
+            proxy_pass http://admin_ssm_ui/;
+            proxy_set_header   Host    $host;
+            proxy_set_header   X-Real-IP   $remote_addr;
+            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+        }
+        location /static/ueditor1.4.3.3 {
+            proxy_pass http://admin_ssm_ui;
+            proxy_set_header   Host    $host;
+            proxy_set_header   X-Real-IP   $remote_addr;
+            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+        }
+
+        location /ccs-manage {
+            rewrite ^/ccs-manage(.*) ${http_referer}ccs/ redirect;
+        }
+        location /ccs/{
+            proxy_pass http://admin_ccs_ui/;
+            proxy_set_header   Host    $host;
+            proxy_set_header   X-Real-IP   $remote_addr;
+            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+        }
+        location /ccsDal {
+            proxy_pass http://admin_ccs_dal;
+        }
+        location /ccsapi{
+            proxy_pass http://admin_ccs_controller;
+        }
+        location /validate {
+            proxy_pass http://admin_ccs_diverter;
+        }
+        location /check/bot {
+            proxy_pass http://admin_ccs_diverter;
+        }
+
+        # golang /api/v1
+        location /Files/sq/images {
+            proxy_pass http://127.0.0.1:8181/api/v1/media/image;
+        }
+
+        location /api {
+            add_header Cache-Control no-store;
+            add_header Cache-Control private;
+            proxy_pass http://127.0.0.1:8181;
+        }
+
+        location /Files {
+            proxy_pass http://127.0.0.1:8181;
+        }
+
+        location = uiversion {
+            proxy_pass http://127.0.0.1:80/uiversion.html;
+        }
+
+        location /data_health_check/download {
+            proxy_pass http://admin_lqcheck_conflict;
+        }
+
+        # /Files will go here
+        location / {
+            root   /build/dist;
+            index  index.html index.htm;
+        }
+
+        ## error_page 403 /403.html;
+    }
+}

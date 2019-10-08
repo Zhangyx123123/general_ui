@@ -1,0 +1,175 @@
+$bullet-point-color: #9b9b9b;
+#scenario_edit_page{
+  height:100%;
+  .content {
+    display: flex;
+    flex-direction: column;
+    .header {
+      flex: 0 0 60px;
+      padding: 0 20px;
+      &.title {
+        @include font-16px();
+        color: $color-font-active;
+        flex: 0 0 60px;
+        border-bottom: 1px solid $color-borderline;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .breadcrumb{
+          display: flex;
+          align-items: center;
+          .back-to-list{
+            cursor: pointer;
+            margin-right: 10px;
+          }
+          .scenario-name-container{
+            display: flex;
+            flex-direction: column;
+            width: 320px;
+            margin-left: 16px;
+            .input-scenario-name{
+              height: 24px;
+              padding: 0px;
+              padding-left: 9.5px;
+              font-size: 16px;
+              line-height: 1.5;
+              color: $color-font-active;
+              border: none;
+              box-shadow: none;
+            }
+            .blank{
+              padding: 0px;
+              margin-bottom: 6.5px;
+              height: 2px;
+              border: none;
+            }
+            .bottom-border{
+              padding: 0px;
+              margin-top: 6.5px;
+              height: 2px;
+              border: none;
+              border-bottom: solid 1px #dbdbdb;
+              &.input-focus {
+                border-bottom: solid 1px $color-primary;
+              }
+            }
+          }
+          .button-switch-enable{
+            margin-left: 12px;
+          }
+          .label-switch{
+            width: 24px;
+            height: 18px;
+            font-size: 12px;
+            line-height: 1.5;
+            color: $color-font-mark;
+          }
+          .label-switch-off{
+            margin-left: 2.5px;
+          }
+          .label-switch-on{
+            margin-left: 12px;
+            color: $color-primary;
+          }
+        }
+      }
+      .header-buttons {
+        .text-button {
+          &:not(:last-child) {
+            margin-right: 10px;
+          }
+        }
+      }
+      &:not(.title) {
+        margin-top: 20px;
+      }
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      .sidebar {
+        flex: 0 0 196px;
+        padding: 20px;
+        padding-right: 0px;
+        // height: calc(100% - 100px);
+        .sidebar-content{
+          height: 100%;
+          border-right: 1px solid $color-borderline;
+          .slect-skill-container{
+            display: flex;
+            flex-direction: row;
+            .setting-button{
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              margin-left: 10px;
+              &:hover{
+                cursor: pointer;
+              }
+            }
+          }
+
+          .list-ic li {
+            position: relative;
+          }
+          .list-ic li .title {
+            @include font-16px();
+            margin-left: 10px;
+            cursor: pointer;
+          }
+          .list-ic li .order { // order number
+            display: inline-block;
+            font-weight: 800;
+            width: 2em;
+            height: 2em;
+            text-align: center;
+            line-height: 2em;
+            border-radius: 1em;
+            background: $bullet-point-color;
+            color: white;
+            position: relative;
+            z-index: 1;
+          }
+          .list-ic li.active .order{
+            background: $color-primary;
+          }
+          .list-ic li.active .title{
+            color: $color-primary;
+          }
+          .list-ic li::before {
+            content: '';
+            position: absolute;
+            background: $bullet-point-color;
+          }
+          .list-ic.vertical {
+            padding: 0;
+            margin: 0;
+          }
+          .list-ic.vertical li {
+            list-style-type: none;
+            text-align: left;
+          }
+          .list-ic.vertical li .order {
+            margin: 1.4em 0;
+          }
+          .list-ic.vertical li::before { // vertical line
+            top: -25px;
+            left: 11px;
+            width: 0.2em;
+            height: 4em;
+          }
+          .list-ic li:first-child::before {
+            display: none;
+          }
+        }
+      }
+      .page-container {
+        flex: 1;
+        @include auto-overflow();
+        @include customScrollbar();
+      }
+    }
+  }
+}

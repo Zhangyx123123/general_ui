@@ -1,0 +1,30 @@
+@import '../assets/styles/variable';
+
+html {
+  height: 100%;
+  padding: 50px 20px;
+  font-family: PingFangHK-Regular, 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  height: 100%;
+  #root {
+    height: inherit;
+  }
+}
+.div-block {
+  background-color: #eeeeee;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 20px 0px;
+}
+.headline {
+  font-size: 20px;
+  line-height: 24px;
+  color: $color-font-active;
+  margin-bottom: 10px;
+}
+.line {
+  margin-bottom: 10px;
+}

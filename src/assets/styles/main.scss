@@ -1,0 +1,281 @@
+@import './variable';
+
+html, body {
+  overflow: hidden;
+  font-size: $app-dft-font-size;
+  font-family: $app-dft-font-family, 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: $color-font-normal;
+}
+
+input {
+  @include font-14px();
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 3px 8px;
+  border: solid 1px $color-borderline;
+  border-radius: 2px;
+  color: $color-font-normal;
+  font-family: $app-dft-font-family;
+  &::placeholder {
+    color: $color-font-disabled;
+  }
+  &[type=text] {
+    width: 160px;
+  } 
+  &:hover {
+    border-color: $color-borderline-hover;
+  }
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(75, 75, 100, 0.2);
+    border-color: $color-borderline-hover;
+  }
+  &:disabled {
+    border-color: $color-borderline-disabled;
+    &:hover{
+      border-color: $color-borderline-disabled;
+    }
+  }
+  &:-webkit-autofill {
+    -webkit-box-shadow:0 0 0 50px white inset;
+    -webkit-text-fill-color: #333;
+  }
+  &.error {
+    background-color: $color-input-error;
+  }
+}
+
+.icon-input {
+  box-sizing: border-box;
+  width: 160px;
+  border: solid 1px $color-borderline;
+  border-radius: 2px;
+  background: white;
+  display: flex;
+  align-items: center;
+  &:hover {
+    border-color: $color-borderline-hover;
+  }
+  &.disabled {
+    border-color: $color-borderline-disabled;
+  }
+  &:focus-within {  /** do not support IE **/
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(75, 75, 100, 0.2);
+    border-color: $color-borderline-hover;
+  }
+  &.error {
+    background-color: $color-input-error;
+  }
+
+  input {
+    flex: 1 1 0px;  // IE11 Hack: give flex-basis specific px or %
+    min-width: 0px;
+    padding: 4px 8px;
+    padding-right: 0px;
+    border: 0px;
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+  .input-icon {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+  }
+}
+textarea {
+  @include font-14px();
+  resize: none;
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 5px 8px;
+  border: solid 1px $color-borderline;
+  border-radius: 2px;
+  font-family: $app-dft-font-family;
+  &::placeholder {
+    color: $color-font-disabled;
+  }
+  &:hover {
+    border-color: $color-borderline-hover;
+  }
+  &:focus {
+    outline: none;
+    border-color: $color-borderline-hover;
+  }
+  &:disabled {
+    &:hover{
+      border-color: $color-borderline;
+    }
+  }
+  &.error {
+    background-color: $color-input-error;
+  }
+}
+
+#app {
+  // margin-top: 60px;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  & > div.blur {
+    filter: blur(5px);
+  }
+}
+
+#app-logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: $page-menu-width;
+  height: $page-header-height;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: $page-menu-color;
+  background-size: 120px 40px;
+  &.default.zh-cn {
+    background-image: url("/static/emotibot_logo_small_chs.svg");
+  }
+  &.default.zh-tw {
+    background-image: url("/static/emotibot_logo_small_cht.svg");
+  }
+}
+
+#app-page {
+  position: absolute;
+  left: $page-menu-width;
+  top: $page-header-height;
+  width: calc(100vw - #{$page-menu-width});
+  height: calc(100vh - #{$page-header-height});
+  background: $page-base;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  &.manage {
+    width: 100vw;
+    left: 0;
+  }
+
+  &.iframe {
+    padding: 0px;
+  }
+  & > .app-body {
+    padding: 0 20px;
+    &:not(.iframe) {
+      .card {
+        @include auto-overflow();
+      }
+    }
+    &.multi-card {
+      @include auto-overflow();
+    }
+    .card {
+      @include card();
+    }
+    // background: white;
+    // border-radius: 5px;
+    // box-shadow: 0px 0px 5px rgba(102,102,102, 0.08);
+    height: 100%;
+    &.iframe {
+      padding: 0px;
+      height: 100%;
+      overflow: hidden;
+    }
+  }
+}
+
+.float-menu {
+  z-index: 10;
+  visibility: hidden;
+  position: absolute;
+  &.show {
+    visibility: visible;
+  }
+}
+
+#task-engine-v2{
+  padding: 0px !important;
+}
+
+// .icon {
+//   display: inline-block;
+//   position: relative;
+//   text-align: center;
+//   width: $default-line-height;
+//   height: $default-line-height;
+//   flex: 0 0 30px;
+
+//   &.button {
+//     cursor: pointer;
+//   }
+
+//   .triangle {
+//     display: block;
+//     border-color: white transparent transparent transparent;
+//     border-style: solid;
+//     border-width: 0.5em 0.5em 0px 0.5em;
+//     height: 0px;
+//     width: 0px;
+//     position: relative;
+//     top: calc(50% - 0.25em);
+//     left: calc(50% - 0.25em);
+//   }
+//   .enterprise_icon {
+//     background: url("./assets/images/enterprise.png") no-repeat center center;
+//     background-size: 40px 40px;
+//     width: 100%;
+//     height: 100%;
+//   }
+//   &:hover {
+//     .tooltip {
+//       visibility: visible;
+//     }
+//   }
+//   .tooltip {
+//     visibility: hidden;
+//     position: absolute;
+//     background: $tool-tip-background;
+//     color: $tool-tip-text;
+//     padding: 5px;
+//     border-radius: $input-border-radius;
+//     top: calc(-100% + 5px);
+//     left: -5px;
+//     user-select: none;
+//     white-space: nowrap;
+//     &::after {
+//       content: "";
+//       position: absolute;
+//       top: 100%;
+//       left: 50%;
+//       margin-left: -5px;
+//       border-width: 5px;
+//       border-style: solid;
+//       border-color: $tool-tip-background transparent transparent transparent;
+//     }
+//   }
+//   @mixin iconType($name) {
+//     .#{$name}_icon {
+//       background: url("./assets/icons/#{$name}_icon.svg") no-repeat center center;
+//       // background: url("./icons/#{$name}_icon.svg") no-repeat center center;
+//       background-size: 20px 20px;
+//       width: 100%;
+//       height: 100%;
+//     }
+//     &.button {
+//       .#{$name}Icon:active {
+//         margin-left: 1px;
+//         margin-top: 1px;
+//       }
+//     }
+//   }
+//   @include iconType("white_robot");
+
+//   // robot icon should a little bit larger than other icons
+//   .white_robot_icon {
+//     background-size: 25px 25px;
+//   }
+// }

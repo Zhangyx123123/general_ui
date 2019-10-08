@@ -1,0 +1,120 @@
+schemaVersion: '2.0.0'
+globalEnvVars:
+  - key: "ADMIN_HTTP_PORT"
+    value: 80
+  - key: "ADMIN_SERVER_PORT"
+    value: 8181
+  - key: "ADMIN_SERVER_AUTH_URL"
+    value: http://127.0.0.1:8088/auth/v2/token
+  - key: "ADMIN_SERVER_MYSQL_URL"
+    value: 127.0.01:3306
+  - key: "ADMIN_SERVER_MYSQL_USER"
+    value: root
+  - key: "ADMIN_SERVER_MYSQL_PASS"
+    value: password
+  - key: "ADMIN_SERVER_MYSQL_DB"
+    value: emotibot
+  - key: "ADMIN_SERVER_AUDIT_MYSQL_URL"
+    value: 127.0.0.1:3306
+  - key: "ADMIN_SERVER_AUDIT_MYSQL_USER"
+    value: root
+  - key: "ADMIN_SERVER_AUDIT_MYSQL_PASS"
+    value: password
+  - key: "ADMIN_SERVER_AUDIT_MYSQL_DB"
+    value: emotibot
+  - key: "ADMIN_SERVER_CONSUL_URL"
+    value: http://127.0.0.1:8500
+  - key: "ADMIN_SERVER_CONSUL_PREFIX"
+    value: idc
+  - key: "ADMIN_SERVER_LOG_LEVEL"
+    value: TRACE
+  - key: "ADMIN_SERVER_MOUNT_PATH"
+    value: /api/File
+  - key: "ADMIN_QA_TEST_TYPE"
+    value: BFOP
+  - key: "ADMIN_QA_TEST_URL"
+    value: http://172.17.0.1:10901/robot
+  - key: "ADMIN_QA_CONTROLLER_URL"
+    value: http://${EC_HOST}:${EC_PORT}/v1/QAtest
+  - key: "ADMIN_STATISTIC_MYSQL_URL"
+    value: 127.0.0.1:3306
+  - key: "ADMIN_STATISTIC_MYSQL_USER"
+    value: root
+  - key: "ADMIN_STATISTIC_MYSQL_PASS"
+    value: password
+  - key: "ADMIN_STATISTIC_MYSQL_DB"
+    value: backend_log
+  - key: "ADMIN_TASK_SERVER_URL"
+    value: http://127.0.0.1:15501
+  - key: "ADMIN_STAT_SERVER_URL"
+    value: 127.0.0.1:15501
+  - key: "ADMIN_ELK_STAT_SERVER_URL"
+    value: 127.0.0.1:8200
+  - key: "ADMIN_BF_SERVER_URL"
+    value: ${BF2_HOST}:80
+  - key: "ADMIN_IM_SERVER_URL"
+    value: ${IM_ADMIN_HOST}:8080
+  - key: "ADMIN_AUTH_MYSQL_URL"
+    value: 127.0.0.1:3306
+  - key: "ADMIN_AUTH_MYSQL_USER"
+    value: root
+  - key: "ADMIN_AUTH_MYSQL_PASS"
+    value: password
+  - key: "ADMIN_AUTH_MYSQL_DB"
+    value: auth
+  - key: "ADMIN_AUTH_PORT"
+    value: 8088
+  - key: "ADMIN_AUTH_AUDIT_MYSQL_URL"
+    value: 127.0.0.1:3306
+  - key: "ADMIN_AUTH_AUDIT_MYSQL_USER"
+    value: root
+  - key: "ADMIN_AUTH_AUDIT_MYSQL_PASS"
+    value: password
+  - key: "ADMIN_AUTH_AUDIT_MYSQL_DB"
+    value: emotibot
+  - key: "ADMIN_AUTH_TIMEOUT"
+    value: 86400
+  - key: "ADMIN_DICTIONARY_INTERNAL_SERVER"
+    value: http://127.0.0.1:80
+  - key: "ADMIN_SERVICE_NLU"
+    value: http://127.0.0.1:13901/
+  - key: "ADMIN_SERVICE_SOLRETL"
+    value: http://${SOLRETL_HOST}:1337
+  - key: "ADMIN_INTENTS_INTENT_ENGINE_URL"
+    value: http://${IE_HOST}:15001
+  - key: "ADMIN_INTENTS_RULE_ENGINE_URL"
+    value: http://172.17.0.1:15002
+  - key: "ADMIN_SERVER_ELASTICSEARCH_HOST"
+    value: ${ES_HOST}
+  - key: "ADMIN_SERVER_ELASTICSEARCH_PORT"
+    value: ${ES_PORT}
+  - key: "ADMIN_STATS_DAL_URL"
+    value: http://${DAL_HOST}:8885/
+  - key: "ADMIN_CLUSTERING_TOOL_URL"
+    value: http://${CLUSTER_HOST}:13014/
+  - key: "ADMIN_BF_SERVER_URL"
+    value: "127.0.0.1"
+  - key: "ADMIN_IM_SERVER_URL"
+    value: "127.0.0.1"
+  - key: "ADMIN_IM_MSG_KF_URL"
+    value: "127.0.0.1"
+  - key: "ADMIN_IM_WEB_AGENT"
+    value: "127.0.0.1"
+  - key: "ADMIN_STAT_SERVER_URL"
+    value: "127.0.0.1"
+  - key: "ADMIN_ELK_STAT_SERVER_URL"
+    value: "127.0.0.1"
+commandTests:
+# Check Nginx is install properly
+  - name: "nginx execute"
+    setup: [["envsubst", "$$NAMESERVER$$ADMIN_BF_SERVER_URL$$ADMIN_IM_SERVER_URL$$ADMIN_STAT_SERVER_URL$$ADMIN_ELK_STAT_SERVER_URL", "< /etc/nginx/nginx.conf.template", "> /etc/nginx/nginx.conf"]]
+    command: "/etc/nginx/sbin/nginx"
+    exitCode: 0
+  - name: "file int"
+    command: "/api/files_init.sh"
+    exitCode: 0
+fileContentTests:
+# Check ui version is recorded as fallowed
+  - name: "ui version"
+    path: '/build/dist/uiversion.html'
+    expectedContents: ['\w{7}']

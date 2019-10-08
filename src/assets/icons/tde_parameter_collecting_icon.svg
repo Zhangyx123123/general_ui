@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="41" height="60" viewBox="0 0 41 60">
+    <defs>
+        <linearGradient id="b" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#F2F5F9" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#B6C5D9" stop-opacity=".1"/>
+        </linearGradient>
+        <path id="a" d="M3.253 3.755h33.494c.1 0 .18.08.18.18v21.138H3.073V3.936c0-.1.081-.181.181-.181z"/>
+        <linearGradient id="d" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#1F1845" stop-opacity="0"/>
+            <stop offset="100%" stop-opacity=".5"/>
+        </linearGradient>
+        <rect id="c" width="37.47" height="3.634" x="1.265" y="25.073" rx=".602"/>
+        <path id="e" d="M16.807 1.938h6.386c.332 0 .602.27.602.602v1.215h-7.59V2.54c0-.332.27-.602.602-.602z"/>
+        <path id="f" d="M20 0c.765 0 1.386.62 1.386 1.386v.552h-2.772v-.552C18.614.62 19.234 0 20 0z"/>
+        <path id="g" d="M12.108 28.707h1.747L7.23 43H5.482z"/>
+        <path id="h" d="M27.892 28.707L34.518 43h-1.747l-6.626-14.293z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <path fill="#FFF" fill-opacity=".01" fill-rule="nonzero" d="M1 0h40v60H1z"/>
+        <g transform="translate(1 9)">
+            <use fill="#F2F5F9" xlink:href="#a"/>
+            <use fill="url(#b)" xlink:href="#a"/>
+            <rect width="13.253" height="1.817" x="5.482" y="6.177" fill="#D6DFEA" rx=".908"/>
+            <path fill="#D6DFEA" d="M6.088 9.206h20.475a.606.606 0 0 1 0 1.211H6.088a.606.606 0 0 1 0-1.211zM6.088 11.628h16.86a.606.606 0 1 1 0 1.211H6.089a.606.606 0 0 1 0-1.211z"/>
+            <use fill="#1F1845" xlink:href="#c"/>
+            <use fill="url(#d)" xlink:href="#c"/>
+            <use fill="#1F1845" xlink:href="#e"/>
+            <use fill="url(#d)" xlink:href="#e"/>
+            <use fill="#1F1845" xlink:href="#f"/>
+            <use fill="url(#d)" xlink:href="#f"/>
+            <use fill="#1F1845" xlink:href="#g"/>
+            <use fill="url(#d)" xlink:href="#g"/>
+            <g>
+                <use fill="#1F1845" xlink:href="#h"/>
+                <use fill="url(#d)" xlink:href="#h"/>
+            </g>
+            <path stroke="#E2628C" stroke-linecap="round" stroke-linejoin="round" stroke-width=".663" d="M0 23.923c2.69-6.786 8.955-10.693 17.476-5.347C25.996 23.923 33.462 8.236 40 8.236"/>
+            <ellipse cx="8.795" cy="16.11" fill="#E2628C" rx="1" ry="1"/>
+            <ellipse cx="20" cy="19.441" fill="#E2628C" rx="1" ry="1"/>
+            <ellipse cx="31.205" cy="14.111" fill="#E2628C" rx="1" ry="1"/>
+        </g>
+    </g>
+</svg>

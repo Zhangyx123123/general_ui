@@ -1,0 +1,94 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </h3>
+        </div>
+        <form class="updateBotForm">
+            <input name="endStory" value="2" type="hidden" />
+            <input type="hidden" id="deploySMS" name="deploySMS" value="false">
+            <input type="hidden" id="deployEmail" name="deployEmail" value="false">
+            <textarea id="webchatCss" style="display:none" name="deployedWeb"></textarea>
+            <input type="hidden" id="deployWeb" name="deployWeb" value="true">
+            <input type="hidden" id="deploySlack" name="deploySlack" value="false">
+            <input type="hidden" id="deployFb" name="deployFb" value="false">
+            <input type="hidden" id="deploySmooch" name="deploySmooch" value="false">
+
+
+            <div class="margin-top-0 margin-30">
+
+                <!-- <div class="form-group">
+                    <h4>Bot ID</h4>
+                    <input value="26439" type="text" class="form-control round" readonly/>
+                </div> -->
+
+                <div class="form-group">
+                    <h4>场景名称</h4>
+                    <input id="setting-scenario-name" maxlength="40" name="nickname" placeholder="" value="" type="text" class="form-control round"
+                    />
+                </div>
+
+                <!--
+                <div class="form-group">
+                    <h4>过期时间<small>(多少秒后没有聊天 session 将会过期)</small></h4>
+                    <input style="width:100px; display:inline" name="expiry" value="100" placeholder="Duration (in seconds)" type="number" class="form-control round"/>
+                </div>
+                -->
+
+                <div class="form-group">
+
+                    <div id="error_enabled">
+                        <div class="form-group">
+                            <h4>全场景对话数
+                                <small>（全场景对话数限制）</small>
+                            </h4>
+                            <input style="width:100px; display:inline" name="globalDialoguesCnt" value="30" placeholder="Count" type="text" class="form-control round"
+                                oninput="this.value = this.value.replace(/^0$/g, ''); this.value = this.value.replace(/[^0-9]/g, ''); this.value = this.value.replace(/(^[0-9]{1,2}).*/g, '$1');"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <h4>预设节点对话数
+                                <small>（节点对话轮数限制）</small>
+                            </h4>
+                            <input style="width:100px; display:inline" name="nodeDialoguesCnt" value="3" placeholder="Count" type="text" class="form-control round"
+                                oninput="this.value = this.value.replace(/^0$/g, ''); this.value = this.value.replace(/[^0-9]/g, ''); this.value = this.value.replace(/(^[0-9]{1,2}).*/g, '$1');"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" id="btn_save_setting" class="btn btn-primary" data-target="#scenario_setting" data-toggle="modal">保存</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    (function () {
+        var BASE_URL = "/php/api/ApiKey/";
+        var robotData = G.getCookie('robotDataJson')
+        if (!robotData) {
+            window.location.href = 'index.html';
+            return;
+        }
+        var robotDataJson = JSON.parse(robotData);
+        var appId = robotDataJson.appid;
+        $('#scenario_setting').on('shown.bs.modal', function () {
+            $('#setting-scenario-name').val(window.moduleData.metadata.scenario_name);
+            if (typeof window.moduleData.setting.sys_scenario_dialogue_cnt_limit !== 'undefined' &&
+                window.moduleData.setting.sys_node_dialogue_cnt_limit !== 'undefined') {
+                $('#error_enabled input[name="globalDialoguesCnt"]').val(window.moduleData.setting.sys_scenario_dialogue_cnt_limit);
+                $('#error_enabled input[name="nodeDialoguesCnt"]').val(window.moduleData.setting.sys_node_dialogue_cnt_limit)
+            }
+        });
+        $('#btn_save_setting').click(function (e) {
+            saveSetting();
+        });
+    })();
+
+
+</script>

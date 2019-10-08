@@ -1,0 +1,12 @@
+FROM docker-reg.emotibot.com.cn:55688/general-node-base:20180530-d11d8a1 AS build-env
+
+FROM nginx:1.13-alpine
+
+COPY --from=build-env /build/dist/index.html /build/dist/
+COPY --from=build-env /build/dist/login.html /build/dist/
+COPY --from=build-env /build/dist/static /build/dist/static
+
+COPY docker/conf/simple-nginx.conf /etc/nginx/nginx.conf
+WORKDIR /build/dist
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"] 

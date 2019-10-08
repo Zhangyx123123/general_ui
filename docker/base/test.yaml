@@ -1,0 +1,12 @@
+schemaVersion: '2.0.0'
+commandTests:
+# Check npm is executable
+  - name: "npm"
+    command: "/usr/local/bin/npm"
+    args: ["version"]
+    exitCode: 0
+fileExistenceTests:
+# Check npm install make th node_module folder
+  - name: "binary"
+    shouldExist: true
+    path: '/build/node_modules'

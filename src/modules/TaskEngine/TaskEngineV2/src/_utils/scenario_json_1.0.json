@@ -1,0 +1,2041 @@
+{
+    "taskScenario": {
+        "msg_confirm": [],
+        "global_edges": [
+            {
+                "to_node_id": "0",
+                "edge_type": "normal",
+                "condition_rules": [
+                    [
+                        {
+                            "source": "text",
+                            "functions": [
+                                {
+                                    "content": "123",
+                                    "function_name": "match",
+                                    "content_text_array": []
+                                }
+                            ]
+                        }
+                    ]
+                ],
+                "actions": [
+                    {
+                        "operation": "set_to_global_info",
+                        "key": "parsing_failed",
+                        "val": false
+                    },
+                    {
+                        "operation": "set_to_global_info",
+                        "key": "sys_node_dialogue_cnt",
+                        "val": 0
+                    }
+                ]
+            },
+            {
+                "to_node_id": "8075366322743",
+                "edge_type": "normal",
+                "condition_rules": [
+                    [
+                        {
+                            "source": "text",
+                            "functions": [
+                                {
+                                    "content": "url",
+                                    "function_name": "api_parser",
+                                    "content_text_array": [
+                                        "api key"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                ],
+                "actions": [
+                    {
+                        "operation": "set_to_global_info",
+                        "key": "parsing_failed",
+                        "val": false
+                    },
+                    {
+                        "operation": "set_to_global_info",
+                        "key": "sys_node_dialogue_cnt",
+                        "val": 0
+                    }
+                ]
+            },
+            {
+                "to_node_id": null,
+                "edge_type": "normal",
+                "condition_rules": [
+                    [
+                        {
+                            "source": "global_info",
+                            "functions": [
+                                {
+                                    "content": [
+                                        {
+                                            "compare": "==",
+                                            "key": "keyname",
+                                            "val": "value"
+                                        }
+                                    ],
+                                    "function_name": "key_val_match"
+                                }
+                            ]
+                        }
+                    ]
+                ],
+                "actions": []
+            }
+        ],
+        "setting": {
+            "sys_node_dialogue_cnt_limit": 3,
+            "sys_scenario_dialogue_cnt_limit": 30
+        },
+        "nodes": [
+            {
+                "node_type": "exit",
+                "node_id": "0",
+                "description": "Exit",
+                "warnings": [
+                    {
+                        "type": "missing_inbound_connection",
+                        "warning_msg": "请新增至少一个指向此节点的连线"
+                    },
+                    {
+                        "type": "missing_outbound_connection",
+                        "warning_msg": "请在此节点新增至少一个指向其他节点的连线"
+                    }
+                ]
+            },
+            {
+                "description": "入口节点",
+                "warnings": [],
+                "global_vars": [
+                    "正则表示式目的键1",
+                    "正则表示式目的键A",
+                    "正则表示式目的键B",
+                    "City_0657174893737",
+                    "CheckinDate_0657174893737",
+                    "CheckoutDate_0657174893737",
+                    "time_0657174893737",
+                    "city_0657174893737",
+                    "landmark_0657174893737",
+                    "money_0657174893737",
+                    "time_period_0657174893737",
+                    "phone_call_0657174893737",
+                    "adjust_light_0657174893737",
+                    "adjust_volume_0657174893737",
+                    "movie_name_0657174893737",
+                    "song_name_0657174893737",
+                    "star_name_0657174893737",
+                    "teleplay_name_0657174893737",
+                    "album_name_0657174893737",
+                    "number_0657174893737",
+                    "fromPlace_0657174893737",
+                    "toPlace_0657174893737",
+                    "departDate_0657174893737",
+                    "arriveDate_0657174893737",
+                    "returnDate_0657174893737",
+                    "转换数据解析器目的键",
+                    "polarity_0657174893737",
+                    "WebAPI调用键"
+                ],
+                "node_type": "entry",
+                "edges": [
+                    {
+                        "to_node_id": null,
+                        "edge_type": "hidden",
+                        "condition_rules": [],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "sys_scenario_dialogue_cnt",
+                                "val": 0
+                            },
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "sys_node_dialogue_cnt",
+                                "val": 0
+                            },
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "sys_scenario_dialogue_cnt_limit",
+                                "val": 30
+                            },
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "sys_node_dialogue_cnt_limit",
+                                "val": 3
+                            }
+                        ]
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "hidden",
+                        "condition_rules": []
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "hidden",
+                        "condition_rules": []
+                    },
+                    {
+                        "to_node_id": "0904278079939",
+                        "edge_type": "normal",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "text",
+                                    "functions": [
+                                        {
+                                            "content": "完全相符",
+                                            "function_name": "match",
+                                            "content_text_array": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "source": "text",
+                                    "functions": [
+                                        {
+                                            "content": {
+                                                "operations": [
+                                                    {
+                                                        "index": 0,
+                                                        "operation": "set_to_global_info",
+                                                        "key": "正则表示式目的键1"
+                                                    }
+                                                ],
+                                                "pattern": "pattern"
+                                            },
+                                            "function_name": "regular_exp"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "content": [
+                                                {
+                                                    "key": "123"
+                                                }
+                                            ],
+                                            "function_name": "contain_key"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "parsing_failed",
+                                "val": false
+                            },
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "sys_node_dialogue_cnt",
+                                "val": 0
+                            }
+                        ]
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "normal",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "text",
+                                    "functions": [
+                                        {
+                                            "content": "包含文本",
+                                            "function_name": "contains",
+                                            "content_text_array": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": []
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "normal",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "text",
+                                    "functions": [
+                                        {
+                                            "content": {
+                                                "operations": [
+                                                    {
+                                                        "index": 0,
+                                                        "operation": "set_to_global_info",
+                                                        "key": "正则表示式目的键A"
+                                                    },
+                                                    {
+                                                        "index": 0,
+                                                        "operation": "set_to_global_info",
+                                                        "key": "正则表示式目的键B"
+                                                    }
+                                                ],
+                                                "pattern": "正则表示式 模式"
+                                            },
+                                            "function_name": "regular_exp"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": []
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "normal",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "text",
+                                    "functions": [
+                                        {
+                                            "content": {
+                                                "key_suffix": "_0657174893737",
+                                                "tags": "City,CheckinDate,CheckoutDate"
+                                            },
+                                            "function_name": "hotel_parser",
+                                            "content_text_array": [
+                                                "City",
+                                                "CheckinDate",
+                                                "CheckoutDate"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": []
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "normal",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "text",
+                                    "functions": [
+                                        {
+                                            "content": {
+                                                "key_suffix": "_0657174893737",
+                                                "tags": "multiselect-all,time_module,city_module,landmark_module,money_module,time_period_module,phone_call_module,adjust_light_module,adjust_volume_module,movie_name_module,song_name_module,star_name_module,teleplay_name_module,album_name_module,number_module"
+                                            },
+                                            "function_name": "common_parser",
+                                            "content_text_array": [
+                                                "time",
+                                                "city",
+                                                "landmark",
+                                                "money",
+                                                "time_period",
+                                                "phone_call",
+                                                "adjust_light",
+                                                "adjust_volume",
+                                                "movie_name",
+                                                "song_name",
+                                                "star_name",
+                                                "teleplay_name",
+                                                "album_name",
+                                                "number"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": []
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "normal",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "text",
+                                    "functions": [
+                                        {
+                                            "content": {
+                                                "key_suffix": "_0657174893737",
+                                                "tags": "multiselect-all,from_place,to_place,depart_date,arrive_date,return_date"
+                                            },
+                                            "function_name": "task_parser",
+                                            "content_text_array": [
+                                                "fromPlace",
+                                                "toPlace",
+                                                "departDate",
+                                                "arriveDate",
+                                                "returnDate"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": []
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "normal",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "text",
+                                    "functions": [
+                                        {
+                                            "content": {
+                                                "trans": "城市代号",
+                                                "to_key": "转换数据解析器目的键"
+                                            },
+                                            "function_name": "user_custom_parser"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": []
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "normal",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "text",
+                                    "functions": [
+                                        {
+                                            "content": {
+                                                "key_suffix": "_0657174893737",
+                                                "key": "polarity"
+                                            },
+                                            "function_name": "polarity_parser",
+                                            "content_text_array": [
+                                                "polarity"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": []
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "normal",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "text",
+                                    "functions": [
+                                        {
+                                            "content": "连结",
+                                            "function_name": "api_parser",
+                                            "content_text_array": [
+                                                "WebAPI调用键"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": []
+                    },
+                    {
+                        "threshold": "0",
+                        "edge_type": "qq",
+                        "candidate_edges": [
+                            {
+                                "to_node_id": "0904278079939",
+                                "tar_text": "句子1"
+                            },
+                            {
+                                "to_node_id": "null",
+                                "tar_text": "句子2"
+                            },
+                            {
+                                "to_node_id": "null",
+                                "tar_text": "句子3"
+                            }
+                        ]
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "else_into",
+                        "condition_rules": [],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "parsing_failed",
+                                "val": false
+                            },
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "sys_node_dialogue_cnt",
+                                "val": 0
+                            }
+                        ]
+                    }
+                ],
+                "node_id": "0657174893737",
+                "entry_condition_rules": [
+                    [
+                        {
+                            "source": "text",
+                            "functions": [
+                                {
+                                    "content": "场景2.0",
+                                    "function_name": "match",
+                                    "content_text_array": []
+                                }
+                            ]
+                        }
+                    ],
+                    [
+                        {
+                            "source": "text",
+                            "functions": [
+                                {
+                                    "content": "123",
+                                    "function_name": "contains",
+                                    "content_text_array": []
+                                }
+                            ]
+                        }
+                    ]
+                ]
+            },
+            {
+                "content": {
+                    "questions": [
+                        {
+                            "msg": null,
+                            "condition_rules": [
+                                [
+                                    {
+                                        "source": "global_info",
+                                        "functions": [
+                                            {
+                                                "content": [
+                                                    {
+                                                        "key": "time_0904278079939"
+                                                    }
+                                                ],
+                                                "function_name": "contain_key"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                [
+                                    {
+                                        "source": "global_info",
+                                        "functions": [
+                                            {
+                                                "content": [
+                                                    {
+                                                        "key": "city_0904278079939"
+                                                    }
+                                                ],
+                                                "function_name": "contain_key"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            ],
+                            "question_type": "skip_response"
+                        },
+                        {
+                            "msg": "",
+                            "condition_rules": [
+                                [
+                                    {
+                                        "source": "global_info",
+                                        "functions": [
+                                            {
+                                                "content": [
+                                                    {
+                                                        "compare": "==",
+                                                        "key": "parsing_failed",
+                                                        "val": true
+                                                    }
+                                                ],
+                                                "function_name": "key_val_match"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            ],
+                            "question_type": "failure_response"
+                        },
+                        {
+                            "msg": "",
+                            "condition_rules": [],
+                            "question_type": "initial_response"
+                        }
+                    ]
+                },
+                "description": "对话节点1",
+                "warnings": [
+                    {
+                        "type": "missing_response",
+                        "warning_msg": "解析失败文本栏位不能为空白，请填入解析失败时的提示语句。"
+                    },
+                    {
+                        "type": "missing_response",
+                        "warning_msg": "预设文本栏位不能为空白，请填入询问语句。"
+                    },
+                    {
+                        "type": "has_exit_connection",
+                        "warning_msg": "出口节点"
+                    }
+                ],
+                "node_type": "dialogue",
+                "default_parser_with_suffix": true,
+                "global_vars": [
+                    "time_0904278079939",
+                    "city_0904278079939",
+                    "场景已收集数据_转换数据目的键",
+                    "场景已收集数据_正则表示式目的键"
+                ],
+                "node_dialogue_cnt_limit": 3,
+                "edges": [
+                    {
+                        "to_node_id": null,
+                        "edge_type": "hidden",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "content": [
+                                                {
+                                                    "key": "time_0904278079939"
+                                                },
+                                                {
+                                                    "key": "city_0904278079939"
+                                                }
+                                            ],
+                                            "function_name": "not_contain_key"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "parsing_failed",
+                                "val": true
+                            },
+                            {
+                                "operation": "update_confirm_status"
+                            },
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "sys_node_dialogue_cnt_limit",
+                                "val": 3
+                            }
+                        ]
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "hidden",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "content": [
+                                                {
+                                                    "key": "time_0904278079939"
+                                                },
+                                                {
+                                                    "key": "city_0904278079939"
+                                                }
+                                            ],
+                                            "function_name": "not_contain_key"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "source": "text",
+                                    "functions": [
+                                        {
+                                            "content": {
+                                                "key_suffix": "_0904278079939",
+                                                "tags": "time_module,city_module"
+                                            },
+                                            "function_name": "common_parser"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "parsing_failed",
+                                "val": false
+                            }
+                        ]
+                    },
+                    {
+                        "to_node_id": "0904278079939",
+                        "edge_type": "hidden",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "content": [
+                                                {
+                                                    "compare": "<",
+                                                    "key": "sys_node_dialogue_cnt",
+                                                    "val": 3
+                                                }
+                                            ],
+                                            "function_name": "key_val_match"
+                                        },
+                                        {
+                                            "content": "scenario_counter_rev",
+                                            "function_name": "counter_check"
+                                        },
+                                        {
+                                            "content": [
+                                                {
+                                                    "key": "time_0904278079939"
+                                                },
+                                                {
+                                                    "key": "city_0904278079939"
+                                                }
+                                            ],
+                                            "function_name": "not_contain_key"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ]
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "normal",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "content": [
+                                                {
+                                                    "compare": "==",
+                                                    "key": "键 键值匹配",
+                                                    "val": "值"
+                                                }
+                                            ],
+                                            "function_name": "key_val_match"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": []
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "normal",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "content": [
+                                                {
+                                                    "key2": "键",
+                                                    "key1": "键键匹配",
+                                                    "compare": "=="
+                                                }
+                                            ],
+                                            "function_name": "key_key_match"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": []
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "normal",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "content": [
+                                                {
+                                                    "key": "包含键"
+                                                }
+                                            ],
+                                            "function_name": "contain_key"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": []
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "normal",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "content": [
+                                                {
+                                                    "key": "不包含键"
+                                                }
+                                            ],
+                                            "function_name": "not_contain_key"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": []
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "normal",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "content": [
+                                                {
+                                                    "compare": "==",
+                                                    "key": "序列长度匹配 键",
+                                                    "val": "值"
+                                                }
+                                            ],
+                                            "function_name": "list_length_match"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": []
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "normal",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "content": "node_counter",
+                                            "function_name": "counter_check",
+                                            "content_text_array": [
+                                                "若超过节点对话轮数限制"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": []
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "normal",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "content": {
+                                                "trans": "房型",
+                                                "from_key": "转换数据 来源键",
+                                                "to_key": "场景已收集数据_转换数据目的键"
+                                            },
+                                            "function_name": "user_custom_transform"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": []
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "normal",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "content": {
+                                                "operations": [
+                                                    {
+                                                        "index": 0,
+                                                        "operation": "set_to_global_info",
+                                                        "key": "场景已收集数据_正则表示式目的键"
+                                                    }
+                                                ],
+                                                "pattern": "正则表示式 模式",
+                                                "from_key": "来源键"
+                                            },
+                                            "function_name": "regular_exp_from_var"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": []
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "normal",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "content": [
+                                                {
+                                                    "operation": "set_to_global_info",
+                                                    "key": "场景已收集数据_赋值键",
+                                                    "val": "值"
+                                                }
+                                            ],
+                                            "function_name": "assign_value"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": []
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "normal",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "cu",
+                                    "functions": [
+                                        {
+                                            "content": "Intent",
+                                            "function_name": "cu_parser",
+                                            "content_text_array": [
+                                                "Intent"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": []
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "normal",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "cu",
+                                    "functions": [
+                                        {
+                                            "content": "自定义语句解析数据提取",
+                                            "function_name": "custom_cu_parser",
+                                            "content_text_array": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": []
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "hidden",
+                        "condition_rules": [],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "sys_node_dialogue_cnt_limit",
+                                "val": 3
+                            }
+                        ]
+                    },
+                    {
+                        "to_node_id": "0",
+                        "edge_type": "exceedThenGoTo",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "content": "node_counter",
+                                            "function_name": "counter_check"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "val": false,
+                                "key": "parsing_failed"
+                            },
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "sys_node_dialogue_cnt",
+                                "val": 0
+                            }
+                        ]
+                    },
+                    {
+                        "to_node_id": "0904278079939",
+                        "edge_type": "else_into",
+                        "condition_rules": [],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "parsing_failed",
+                                "val": true
+                            }
+                        ]
+                    }
+                ],
+                "node_id": "0904278079939"
+            },
+            {
+                "content": {
+                    "questions": [
+                        {
+                            "msg": null,
+                            "condition_rules": [
+                                [
+                                    {
+                                        "source": "global_info",
+                                        "functions": [
+                                            {
+                                                "content": [
+                                                    {
+                                                        "key": "fromPlace"
+                                                    }
+                                                ],
+                                                "function_name": "contain_key"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            ],
+                            "question_type": "skip_response"
+                        },
+                        {
+                            "msg": "",
+                            "condition_rules": [
+                                [
+                                    {
+                                        "source": "global_info",
+                                        "functions": [
+                                            {
+                                                "content": [
+                                                    {
+                                                        "compare": "==",
+                                                        "key": "parsing_failed",
+                                                        "val": true
+                                                    }
+                                                ],
+                                                "function_name": "key_val_match"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            ],
+                            "question_type": "failure_response"
+                        },
+                        {
+                            "msg": "",
+                            "condition_rules": [],
+                            "question_type": "initial_response"
+                        }
+                    ]
+                },
+                "description": "对话节点2",
+                "warnings": [
+                    {
+                        "type": "missing_response",
+                        "warning_msg": "解析失败文本栏位不能为空白，请填入解析失败时的提示语句。"
+                    },
+                    {
+                        "type": "missing_response",
+                        "warning_msg": "预设文本栏位不能为空白，请填入询问语句。"
+                    },
+                    {
+                        "type": "missing_inbound_connection",
+                        "warning_msg": "请新增至少一个指向此节点的连线"
+                    },
+                    {
+                        "type": "has_exit_connection",
+                        "warning_msg": "出口节点"
+                    }
+                ],
+                "node_type": "dialogue",
+                "default_parser_with_suffix": false,
+                "global_vars": [
+                    "fromPlace_8075366322743",
+                    "toPlace_8075366322743"
+                ],
+                "node_dialogue_cnt_limit": 3,
+                "edges": [
+                    {
+                        "to_node_id": null,
+                        "edge_type": "hidden",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "content": [
+                                                {
+                                                    "key": "fromPlace"
+                                                }
+                                            ],
+                                            "function_name": "not_contain_key"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "parsing_failed",
+                                "val": true
+                            },
+                            {
+                                "operation": "update_confirm_status"
+                            },
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "sys_node_dialogue_cnt_limit",
+                                "val": 3
+                            }
+                        ]
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "hidden",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "content": [
+                                                {
+                                                    "key": "fromPlace"
+                                                }
+                                            ],
+                                            "function_name": "not_contain_key"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "source": "text",
+                                    "functions": [
+                                        {
+                                            "content": {
+                                                "key_suffix": "_8075366322743",
+                                                "tags": "from_place,to_place"
+                                            },
+                                            "function_name": "task_parser"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "parsing_failed",
+                                "val": false
+                            }
+                        ]
+                    },
+                    {
+                        "to_node_id": "8075366322743",
+                        "edge_type": "hidden",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "content": [
+                                                {
+                                                    "compare": "<",
+                                                    "key": "sys_node_dialogue_cnt",
+                                                    "val": 3
+                                                }
+                                            ],
+                                            "function_name": "key_val_match"
+                                        },
+                                        {
+                                            "content": "scenario_counter_rev",
+                                            "function_name": "counter_check"
+                                        },
+                                        {
+                                            "content": [
+                                                {
+                                                    "key": "fromPlace"
+                                                }
+                                            ],
+                                            "function_name": "not_contain_key"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ]
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "hidden",
+                        "condition_rules": [],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "sys_node_dialogue_cnt_limit",
+                                "val": 3
+                            }
+                        ]
+                    },
+                    {
+                        "to_node_id": "0",
+                        "edge_type": "exceedThenGoTo",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "content": "node_counter",
+                                            "function_name": "counter_check"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "val": false,
+                                "key": "parsing_failed"
+                            },
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "sys_node_dialogue_cnt",
+                                "val": 0
+                            }
+                        ]
+                    },
+                    {
+                        "to_node_id": "8075366322743",
+                        "edge_type": "else_into",
+                        "condition_rules": [],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "parsing_failed",
+                                "val": true
+                            }
+                        ]
+                    }
+                ],
+                "node_id": "8075366322743"
+            },
+            {
+                "description": "对话节点3",
+                "warnings": [
+                    {
+                        "type": "missing_response",
+                        "warning_msg": "解析失败文本栏位不能为空白，请填入解析失败时的提示语句。"
+                    },
+                    {
+                        "type": "missing_response",
+                        "warning_msg": "预设文本栏位不能为空白，请填入询问语句。"
+                    },
+                    {
+                        "type": "missing_inbound_connection",
+                        "warning_msg": "请新增至少一个指向此节点的连线"
+                    },
+                    {
+                        "type": "has_exit_connection",
+                        "warning_msg": "出口节点"
+                    }
+                ],
+                "node_type": "dialogue",
+                "content": {
+                    "questions": [
+                        {
+                            "msg": "",
+                            "condition_rules": [
+                                [
+                                    {
+                                        "source": "global_info",
+                                        "functions": [
+                                            {
+                                                "content": [
+                                                    {
+                                                        "compare": "==",
+                                                        "key": "parsing_failed",
+                                                        "val": true
+                                                    }
+                                                ],
+                                                "function_name": "key_val_match"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            ],
+                            "question_type": "failure_response"
+                        },
+                        {
+                            "msg": "",
+                            "condition_rules": [],
+                            "question_type": "initial_response"
+                        }
+                    ]
+                },
+                "global_vars": [],
+                "node_dialogue_cnt_limit": 3,
+                "edges": [
+                    {
+                        "to_node_id": null,
+                        "edge_type": "hidden",
+                        "condition_rules": [],
+                        "actions": [
+                            {
+                                "operation": "update_confirm_status"
+                            },
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "sys_node_dialogue_cnt_limit",
+                                "val": 3
+                            }
+                        ]
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "hidden",
+                        "condition_rules": []
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "hidden",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "content": [
+                                                {
+                                                    "compare": "<",
+                                                    "key": "sys_node_dialogue_cnt",
+                                                    "val": 3
+                                                }
+                                            ],
+                                            "function_name": "key_val_match"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ]
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "hidden",
+                        "condition_rules": [],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "sys_node_dialogue_cnt_limit",
+                                "val": 3
+                            }
+                        ]
+                    },
+                    {
+                        "to_node_id": "0",
+                        "edge_type": "exceedThenGoTo",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "content": "node_counter",
+                                            "function_name": "counter_check"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "val": false,
+                                "key": "parsing_failed"
+                            },
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "sys_node_dialogue_cnt",
+                                "val": 0
+                            }
+                        ]
+                    },
+                    {
+                        "to_node_id": "22873187547142",
+                        "edge_type": "else_into",
+                        "condition_rules": [],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "parsing_failed",
+                                "val": true
+                            }
+                        ]
+                    }
+                ],
+                "node_id": "22873187547142"
+            },
+            {
+                "content": {
+                    "questions": [
+                        {
+                            "msg": "",
+                            "condition_rules": [
+                                [
+                                    {
+                                        "source": "global_info",
+                                        "functions": [
+                                            {
+                                                "content": [
+                                                    {
+                                                        "compare": "==",
+                                                        "key": "parsing_failed",
+                                                        "val": true
+                                                    }
+                                                ],
+                                                "function_name": "key_val_match"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            ],
+                            "question_type": "failure_response"
+                        },
+                        {
+                            "msg": "",
+                            "condition_rules": [],
+                            "question_type": "initial_response"
+                        }
+                    ]
+                },
+                "description": "对话节点4",
+                "warnings": [
+                    {
+                        "type": "missing_response",
+                        "warning_msg": "预设文本栏位不能为空白，请填入询问语句。"
+                    },
+                    {
+                        "type": "missing_inbound_connection",
+                        "warning_msg": "请新增至少一个指向此节点的连线"
+                    },
+                    {
+                        "type": "has_exit_connection",
+                        "warning_msg": "出口节点"
+                    }
+                ],
+                "node_type": "dialogue",
+                "default_parser_with_suffix": false,
+                "global_vars": [
+                    "City_029702774120969"
+                ],
+                "node_dialogue_cnt_limit": 3,
+                "edges": [
+                    {
+                        "to_node_id": null,
+                        "edge_type": "hidden",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "content": [],
+                                            "function_name": "not_contain_key"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "parsing_failed",
+                                "val": true
+                            },
+                            {
+                                "operation": "update_confirm_status"
+                            },
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "sys_node_dialogue_cnt_limit",
+                                "val": 3
+                            }
+                        ]
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "hidden",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "content": [],
+                                            "function_name": "not_contain_key"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "source": "text",
+                                    "functions": [
+                                        {
+                                            "content": {
+                                                "key_suffix": "_029702774120969",
+                                                "tags": "City"
+                                            },
+                                            "function_name": "hotel_parser"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "parsing_failed",
+                                "val": false
+                            }
+                        ]
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "hidden",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "content": [
+                                                {
+                                                    "compare": "<",
+                                                    "key": "sys_node_dialogue_cnt",
+                                                    "val": 3
+                                                }
+                                            ],
+                                            "function_name": "key_val_match"
+                                        },
+                                        {
+                                            "content": "scenario_counter_rev",
+                                            "function_name": "counter_check"
+                                        },
+                                        {
+                                            "content": [],
+                                            "function_name": "not_contain_key"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ]
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "hidden",
+                        "condition_rules": [],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "sys_node_dialogue_cnt_limit",
+                                "val": 3
+                            }
+                        ]
+                    },
+                    {
+                        "to_node_id": "0",
+                        "edge_type": "exceedThenGoTo",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "content": "node_counter",
+                                            "function_name": "counter_check"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "val": false,
+                                "key": "parsing_failed"
+                            },
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "sys_node_dialogue_cnt",
+                                "val": 0
+                            }
+                        ]
+                    },
+                    {
+                        "to_node_id": null,
+                        "edge_type": "else_into",
+                        "condition_rules": [],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "parsing_failed",
+                                "val": false
+                            },
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "sys_node_dialogue_cnt",
+                                "val": 0
+                            }
+                        ]
+                    }
+                ],
+                "node_id": "029702774120969"
+            },
+            {
+                "description": "RESTful 数据调用节点",
+                "warnings": [
+                    {
+                        "type": "missing_inbound_connection",
+                        "warning_msg": "请新增至少一个指向此节点的连线"
+                    },
+                    {
+                        "type": "has_exit_connection",
+                        "warning_msg": "出口节点"
+                    }
+                ],
+                "content": {
+                    "requests": [
+                        {
+                            "url": "url",
+                            "headers": {
+                                "Content-Type": "application/json"
+                            },
+                            "rtn_var_name": "变量",
+                            "body": {
+                                "content": "{\"body\": \"body\"}"
+                            },
+                            "method": "POST"
+                        }
+                    ]
+                },
+                "global_vars": [
+                    "变量"
+                ],
+                "node_type": "restful",
+                "edges": [
+                    {
+                        "edge_type": "normal",
+                        "to_node_id": "0",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "function_name": "restful_failed",
+                                            "content": ""
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "sys_node_dialogue_cnt",
+                                "val": 0
+                            }
+                        ]
+                    },
+                    {
+                        "edge_type": "normal",
+                        "to_node_id": "0",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "function_name": "restful_succeed",
+                                            "content": ""
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "sys_node_dialogue_cnt",
+                                "val": 0
+                            }
+                        ]
+                    }
+                ],
+                "node_id": "1589230271224"
+            },
+            {
+                "node_id": "6874255875174",
+                "description": "参数收集节点",
+                "node_type": "parameter_collecting",
+                "warnings": [
+                    {
+                        "type": "missing_inbound_connection",
+                        "warning_msg": "请新增至少一个指向此节点的连线"
+                    },
+                    {
+                        "type": "has_exit_connection",
+                        "warning_msg": "出口节点"
+                    }
+                ],
+                "content": {
+                    "parsers": [],
+                    "questions": []
+                },
+                "edges": [
+                    {
+                        "edge_type": "normal",
+                        "to_node_id": "0",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "function_name": "all_parameters_are_collected",
+                                            "content": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "sys_node_dialogue_cnt",
+                                "val": 0
+                            }
+                        ]
+                    },
+                    {
+                        "edge_type": "hidden",
+                        "to_node_id": null,
+                        "condition_rules": [],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "sys_node_dialogue_cnt_limit",
+                                "val": 3
+                            }
+                        ]
+                    },
+                    {
+                        "edge_type": "normal",
+                        "to_node_id": "0",
+                        "condition_rules": [
+                            [
+                                {
+                                    "source": "global_info",
+                                    "functions": [
+                                        {
+                                            "function_name": "counter_check",
+                                            "content": "node_counter"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ],
+                        "actions": [
+                            {
+                                "operation": "set_to_global_info",
+                                "key": "sys_node_dialogue_cnt",
+                                "val": 0
+                            }
+                        ]
+                    }
+                ],
+                "global_vars": []
+            }
+        ],
+        "metadata": {
+            "scenario_name": "场景2.0",
+            "update_time": "2018-08-02 18:17:24",
+            "update_user": "csbot",
+            "scenario_id": "6fa28818-108c-4566-9918-d566cba6dfab"
+        }
+    },
+    "taskLayouts": {
+        "0657174893737": {
+            "position": {
+                "top": 343,
+                "left": 463
+            }
+        },
+        "07527285320411": {
+            "position": {
+                "left": 509,
+                "top": 668
+            }
+        },
+        "1493081999017": {
+            "position": {
+                "top": 539,
+                "left": 65
+            }
+        },
+        "224560580207698": {
+            "position": {
+                "top": 225,
+                "left": 289
+            }
+        },
+        "0904278079939": {
+            "position": {
+                "top": 517,
+                "left": 462
+            }
+        },
+        "03734044722537": {
+            "position": {
+                "left": 151,
+                "top": 554
+            }
+        },
+        "0140886625147": {
+            "position": {
+                "left": 481,
+                "top": 148
+            }
+        },
+        "2923020262793": {
+            "position": {
+                "left": 648,
+                "top": 354
+            }
+        },
+        "5580747820418": {
+            "position": {
+                "left": 639,
+                "top": 483
+            }
+        },
+        "070467872132": {
+            "position": {
+                "top": 332,
+                "left": 635
+            }
+        },
+        "114251379000915": {
+            "position": {
+                "left": 90,
+                "top": 174
+            }
+        },
+        "057763420403": {
+            "position": {
+                "left": 773,
+                "top": 593
+            }
+        },
+        "3115746605351": {
+            "position": {
+                "left": 787,
+                "top": 789
+            }
+        },
+        "5378237218849": {
+            "position": {
+                "left": 759,
+                "top": 986
+            }
+        },
+        "8075366322743": {
+            "position": {
+                "top": 509,
+                "left": 76
+            }
+        },
+        "22873187547142": {
+            "position": {
+                "top": 659,
+                "left": 71
+            }
+        },
+        "9073124798979": {
+            "position": {
+                "left": 169,
+                "top": 172
+            }
+        },
+        "203801255207976": {
+            "position": {
+                "left": 60,
+                "top": 383
+            }
+        },
+        "6553633808512": {
+            "position": {
+                "left": 210,
+                "top": 273
+            }
+        },
+        "21182314413885": {
+            "position": {
+                "left": 392,
+                "top": 137
+            }
+        },
+        "13934985224856": {
+            "position": {
+                "left": 83,
+                "top": 365
+            }
+        },
+        "029702774120969": {
+            "position": {
+                "top": 815,
+                "left": 71
+            }
+        },
+        "5159016667827": {
+            "position": {
+                "left": 55,
+                "top": 177
+            }
+        },
+        "277323025817801": {
+            "position": {
+                "left": 202,
+                "top": 357
+            }
+        },
+        "82982482102455": {
+            "position": {
+                "top": 220,
+                "left": 207
+            }
+        },
+        "5854853130565": {
+            "position": {
+                "left": 2,
+                "top": 263
+            }
+        },
+        "1589230271224": {
+            "position": {
+                "top": 340,
+                "left": 73
+            }
+        },
+        "8883581519138": {
+            "position": {
+                "left": 507,
+                "top": 812
+            }
+        },
+        "0488969113290": {
+            "position": {
+                "left": 569,
+                "top": 166
+            }
+        },
+        "28635291296160": {
+            "position": {
+                "left": 488,
+                "top": 170
+            }
+        },
+        "06637735017774": {
+            "position": {
+                "left": 484,
+                "top": 120
+            }
+        },
+        "6597191590706": {
+            "position": {
+                "left": 960,
+                "top": 718
+            }
+        },
+        "33150027324789": {
+            "position": {
+                "left": 884,
+                "top": 618
+            }
+        },
+        "71021964313355": {
+            "position": {
+                "top": 671,
+                "left": 461
+            }
+        },
+        "6874255875174": {
+            "position": {
+                "top": 835,
+                "left": 460
+            }
+        }
+    }
+}

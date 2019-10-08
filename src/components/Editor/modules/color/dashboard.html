@@ -1,0 +1,32 @@
+<div>
+    <div>
+    </div>
+    <div class='color-container'>
+        <label>
+            {{$parent.locale["fore color"]}}
+        </label>
+        <div>
+            <div class="color-reset-card" @click="resetForeColor()">
+                {{$parent.locale["no foreColor"]}}
+            </div>
+            <div v-for="color in colors" :style="{'background-color':color}" class="color-card"
+                    @click="changeColor('foreColor', color)">
+            </div>
+        </div>
+        <div style="clear: both"></div>
+    </div>
+    <div class='color-container'>
+        <label>
+            {{$parent.locale["background color"]}}
+        </label>
+        <div>
+            <div class="color-reset-card" @click="resetBackColor()">
+                {{$parent.locale["no backColor"]}}
+            </div>
+            <div v-for="color in colors" :style="{'background-color':color}" class="color-card"
+                    @click="changeColor('backColor', color)">
+            </div>
+        </div>
+        <div style="clear: both"></div>
+    </div>
+</div>

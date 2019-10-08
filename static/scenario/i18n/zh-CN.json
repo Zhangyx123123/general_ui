@@ -1,0 +1,236 @@
+{
+  "wizard_mode": {
+    "side_menu_tab":{
+      "scenario_list": "场景列表",
+      "entity_list": "自定义实体(TBA)"
+    }
+  },
+  "scenario_list_page": {
+    "button_create_new_scenario": "+创建新场景",
+    "scenario_list": "场景列表",
+    "placeholder_search": "搜索...",
+    "ask_delete_confirm": "是否确认要删除此场景？"
+  },
+  "scenario_edit_page": {
+    "main_skill": "主任务",
+    "placeholder_name_the_scenario": "为场景取名",
+    "tab": {
+      "trigger": "怎么触发场景",
+      "entity_collecting": "要收集哪些信息",
+      "action": "信息蒐集完要执行什么动作"
+    },
+    "toast_save_success": "储存成功！",
+    "button_save_and_next_step": "储存并下一步"
+  },
+  "condition_card": {
+    "columns": {
+      "intent": "使用者的意图",
+      "entity": "信息名称",
+      "context": "场景现况"
+    },
+    "if": "当",
+    "and": "而且",
+    "comparison_operators": {
+      "present": "存在",
+      "not_present": "不存在",
+      "contain": "包含",
+      "not_contain": "不包含",
+      "greater_than": "大于",
+      "smaller_than": "小于",
+      "equal_to": "等于",
+      "not_equal_to": "不等于",
+      "belong_to": "属于",
+      "not_belong_to": "不属于"
+    },
+    "context_status": {
+      "on_complete": "蒐集完所有参数",
+      "on_cancel": "用户取消参数蒐集",
+      "on_transfer_to_manual": "触发转人工意图",
+      "on_parse_fail": "用户发话理解失败"
+    }
+  },
+  "action_group": {
+    "button_add_new_condition": "+条件",
+    "button_send_message": "传送讯息",
+    "button_go_to": "前往",
+    "button_call_api": "调用API",
+    "button_edit_memory": "修改内存"
+  },
+  "trigger_page": {
+    "label_title": "这个场景会被哪个意图触发？",
+    "label_title_description": "设定场景的进入条件，只有当使用者与机器人的对话满足预设的触发条件，会进入此场景，触发相对应的多轮对话。",
+    "label_intent_setting": "设定触发场景的意图",
+    "label_choose_intent": "选择意图：",
+    "button_add_new_intent": "建立新意图",
+    "btn_add_new_trigger": "新增触发条件",
+    "option_choose_one": "请选择"
+  },
+  "create_scenario_pop": {
+    "label_create_new_scenario": "创建新场景",
+    "label_name_the_scenario": "给场景取个名字：",
+    "placeholder_enter_scenario_name": "输入场景名称..."
+  },
+  "create_skill_pop": {
+    "label_create_new_skill": "创建新任务",
+    "label_name_the_skill": "给任务取个名字：",
+    "placeholder_enter_skill_name": "输入任务名称..."
+  },
+  "intent_editor_pop": {
+    "label_edit_intent": "编辑意图",
+    "label_add_new_intent": "新增意图",
+    "label_intent_name": "意图名称：",
+    "placeholder_intent_name": "输入意图名称...",
+    "label_training_phrase": "当使用者说出以下句子的时候，此意图会被触发：",
+    "placeholder_user_says": "使用者怎么说..."
+  },
+  "intent_tester_pop": {
+    "label_test_intent": "测试意图(TBA)",
+    "label_intent_test_phrase": "意图测试句：",
+    "placeholder_user_says": "使用者怎么说...",
+    "button_start_to_predict": "开始预测(TBA)",
+    "label_intent_predict_result": "意图预测结果：",
+    "button_upload_batch_phrases": "上传批量测试资料(TBA)"
+  },
+  "action_page": {
+    "label_title": "蒐集所有必要的讯息后，你需要执行什么动作来完成任务？",
+    "button_add_new_msg": "＋文字回应",
+    "button_add_new_webhook": "＋Webhook连接外部服务",
+    "button_add_new_goto": "＋连接下一个任务(TBA)"
+  },
+  "action_card":{
+    "btn_add_new_condition": "＋加入过滤条件",
+    "webhook": {
+      "label_call_webhook": "Webhook API 调用",
+      "label_variable": "API回传值存放位置",
+      "label_method": "调用方法",
+      "label_url": "服务提供位址(URL)",
+      "label_header_content_type": "Header(Content-Type)",
+      "label_body": "Body",
+      "placeholder_input_variable_name": "请为变量取名",
+      "placeholder_input_url": "ex. http://api.server.com/webhook",
+      "placeholder_input_body": "{\"parameter\":\"value\"}"
+    },
+    "msg": {
+      "label_msg_return": "文字回应",
+      "label_return_msg": "回应文字："
+    },
+    "goto": {
+      "label_goto_next_skill": "连接下一个任务",
+      "label_goto": "前往",
+      "button_add_new_task": "建立新任务",
+      "option_finish_scenario": "结束场景"
+    }
+  },
+  "entity_collecting_page": {
+    "title": "在此场景中，您需要收集使用者的哪些信息？",
+    "description": "设定此对话场景需要收集的信息，以及各信息的对应问句",
+    "add_new_entity_collector": "+新增抽取信息",
+    "edit_entity_relation": "设置实体关联性",
+    "edit_sentence_replacement": "设置语句替换",
+    "edit_tde_setting": "设置TDE属性",
+    "order": "排序",
+    "entity_name": "信息名称",
+    "entity_name_placeholder": "请填入信息名称",
+    "entity_category": "分类",
+    "entity_type": "信息实体型别",
+    "prompt": "信息对应问句",
+    "prompt_placeholder": "请填入信息对应问句"
+  },
+  "custom_entity_type_editor_pop": {
+    "title": "新增自定义实体型别",
+    "entity_type": "实体型别名称",
+    "entity_type_description": "实体型别描述",
+    "entity_category": "实体型别所属分类",
+    "upload_entity_table": "上传实体列表",
+    "add_row": "+新增列",
+    "synonyms_table":{
+      "entity": "实体",
+      "entity_placeholder": "请输入实体",
+      "synonyms": "同义词",
+      "synonyms_placeholder": "请输入同义词(请使用,分隔)"
+    }
+  },
+  "entity_management": {
+    "title": "自定义实体",
+    "create_new_entity_type": "新增实体型别",
+    "search_placeholder": "搜索...",
+    "entity_type": "实体型别",
+    "create_date": "创建日期",
+    "cagegory": "分类",
+    "description": "描述",
+    "operation": "操作"
+  },
+  "prompt_editor_pop": {
+    "title": "设定信息提取机制",
+    "set_retry_num":"信息提取失败重试，次数",
+    "set_as_required":"设定为必要题取信息"
+  },
+  "general": {
+    "custom": "自定义",
+    "update_time": "最后刷新时间",
+    "close": "关闭",
+    "operation": "操作",
+    "file": "档案",
+    "export": "导出",
+    "browse": "浏览",
+    "force_cancel": "强制取消",
+    "cancel": "取消",
+    "finish": "完成",
+    "upload": "导入",
+    "ok": "确认",
+    "loading": "读取中",
+    "all": "全部",
+    "question": "问题",
+    "answer": "答案",
+    "ext_answer": "答案扩展",
+    "search": "搜索",
+    "setting": "设置",
+    "save": "储存",
+    "save_change": "储存变更",
+    "edit": "编辑",
+    "add": "新增",
+    "delete": "删除",
+    "success": "成功",
+    "fail": "失败",
+    "on": "开",
+    "off": "关",
+    "login": "登录",
+    "default": "默认",
+    "indicate": "指定",
+    "in_progress": "处理中",
+    "modify": "修改",
+    "yes": "是",
+    "no": "否",
+    "test": "测试"
+  },
+  "error_msg": {
+    "request_failed": "请求失败",
+    "please_enter_the_scenario_name": "请为场景取名",
+    "please_enter_the_skill_name": "请为任务取名",
+    "create_new_scenario_failed": "场景创见失败",
+    "custom_entity_list_length_must_greater_than_two": "至少两个以上的信息使用自定义实体型别，才可设置实体关联"
+  },
+  "entity-relation-editor-pop": {
+    "title": "实体关联性设置",
+    "main_entity": "主要实体",
+    "related_entity": "关联实体",
+    "add_row": "新增列",
+    "add_column": "新增栏",
+    "entity_type": "实体型别",
+    "entity": "实体"
+  },
+  "sentence-replacement-editor-pop":{
+    "title": "语句替换设置",
+    "pattern": "语句比对模式",
+    "text": "替换语句",
+    "pattern_placeholder": "请输入要比对的语句模式",
+    "text_placeholder": "请输入要替换成的语句",
+    "add_replacement_rule": "新增替换规则"
+  },
+  "tde-setting-editor-pop":{
+    "title": "TDE属性设置",
+    "nlgTemplate": "模版",
+    "service": "服务",
+    "jumpOutTimes": "跳出场景重试次数上限值"
+  }
+}
